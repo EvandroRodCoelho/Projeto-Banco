@@ -90,3 +90,10 @@ CLASS Creation Steps:
 
 
 [![Clojure CI](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/clojure.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/clojure.yml)
+
+
+
+
+
+
+[![Java CI with Gradle](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/gradle-publish.yml)
