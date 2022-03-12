@@ -28,6 +28,38 @@ Space Complexity:
 O(N) in additional space complexity.
 
 Defining System:-
+ 
+ 
+                            ![WhatsApp Image 2022-03-12 at 11 40 11 AM](https://user-images.githubusercontent.com/74421461/158008774-1447b924-c402-4cef-9946-8b0e504d8f0a.jpeg)
+
+
+                                ![WhatsApp Image 2022-03-12 at 11 39 10 AM](https://user-images.githubusercontent.com/74421461/158008791-f70643bc-b267-40f9-8210-72c9384bb59e.jpeg)
+
+
+
+
+
+Explanation:-
+
+
+Employee Management has some features.
+
+Proper Login Screen (Invisible Password Typing).
+
+Password Protected.
+
+Encrypted File (Binary).
+
+Easily Add, Delete, Modify Records.
+
+Various Essential Queries.
+
+
+SWOT Analysis:
+
+
+
+                 ![WhatsApp Image 2022-03-12 at 12 10 22 PM](https://user-images.githubusercontent.com/74421461/158008845-5bdf31cc-9d25-4cdd-b345-d9fff0bd80f3.jpeg)
 
 
                
