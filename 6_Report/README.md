@@ -179,22 +179,12 @@ Usecase Diagram:-
 
 
 
+Flowchart of the Employee Management System:
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+![WhatsApp Image 2022-03-12 at 4 06 56 PM](https://user-images.githubusercontent.com/74421461/158014695-6481ae64-381c-4c2b-86a9-26027e04af8a.jpeg)
 
 
 
