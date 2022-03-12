@@ -97,3 +97,10 @@ CLASS Creation Steps:
 
 
 [![Java CI with Gradle](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/gradle-publish.yml)
+
+
+
+
+
+
+https://api.codiga.io/project/31993/score/svg
