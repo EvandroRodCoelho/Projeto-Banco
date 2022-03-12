@@ -64,6 +64,10 @@ CLASS Creation Steps:
 
 
 
+![WhatsApp Image 2022-03-12 at 11 40 11 AM](https://user-images.githubusercontent.com/74421461/158014450-e888f29f-55bf-4986-ac27-9344a7d3d9bc.jpeg)
+
+
+![WhatsApp Image 2022-03-12 at 11 39 37 AM](https://user-images.githubusercontent.com/74421461/158014454-d950b544-afff-43af-87f2-e5c661ca4c03.jpeg)
                        
 
 
