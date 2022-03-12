@@ -27,13 +27,15 @@ O(Clog⁡N), where N is the number of employees, and C is the number of jobs acr
 Space Complexity:
 O(N) in additional space complexity.
 
-Defining System:-
- 
- 
+Defining System:
+![WhatsApp Image 2022-03-12 at 11 39 10 AM](https://user-images.githubusercontent.com/74421461/158013573-b61a5b89-1883-4d91-8ce0-22780a43d5c8.jpeg)
                            
 
 
-                                ![WhatsApp Image 2022-03-12 at 11 39 10 AM](https://user-images.githubusercontent.com/74421461/158008791-f70643bc-b267-40f9-8210-72c9384bb59e.jpeg)
+                                
+
+
+
 
 
 
@@ -59,8 +61,7 @@ SWOT Analysis:
 
 
 
-             https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/issues/1#issue-1167218013
-
+             
 
                
 
