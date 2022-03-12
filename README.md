@@ -101,6 +101,4 @@ CLASS Creation Steps:
 
 
 
-
-
-https://api.codiga.io/project/31993/score/svg
+[ ](https://api.codiga.io/project/31993/score/svg)
