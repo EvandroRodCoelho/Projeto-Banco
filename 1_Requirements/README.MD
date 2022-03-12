@@ -42,3 +42,11 @@ CLASS Creation Steps:
 
 
 10.update_employe
+
+
+
+
+
+
+
+![WhatsApp Image 2022-03-12 at 4 06 56 PM](https://user-images.githubusercontent.com/74421461/158029215-d46f6abe-c2c5-4a4e-9367-e5f7960e4469.jpeg)
