@@ -30,7 +30,7 @@ O(N) in additional space complexity.
 Defining System:-
  
  
-                            ![WhatsApp Image 2022-03-12 at 11 40 11 AM](https://user-images.githubusercontent.com/74421461/158008774-1447b924-c402-4cef-9946-8b0e504d8f0a.jpeg)
+                           
 
 
                                 ![WhatsApp Image 2022-03-12 at 11 39 10 AM](https://user-images.githubusercontent.com/74421461/158008791-f70643bc-b267-40f9-8210-72c9384bb59e.jpeg)
