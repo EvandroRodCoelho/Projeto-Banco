@@ -76,8 +76,42 @@ SWOT Analysis:
              
 
 
+
+
+![WhatsApp Image 2022-03-12 at 12 41 07 PM](https://user-images.githubusercontent.com/74421461/158013837-2da483c9-e99f-4607-90dd-2355269c5180.jpeg)
+
                
 
+
+
+Some of the common benefits of having an EMS in your organization are :-
+
+ Efficiency And Better Accuracy
+ 
+ Fewer Compliance Risks
+
+ Boosted Profitability
+
+ Very Few Manual Errors
+
+ Higher Productivity
+
+ Higher Motivation
+
+ Lower Costs
                         
+
+Implementing an EMS framework for workers is equivalent to pushing mountains for a company and that is really important when it comes to handling a remote workforce.
+
+
+The Employee Management System is now used in every industry to have all the info of the employee stored into file/database. This way all the list of employees working in a particular industry can be stored in one place
+
+
+This issue can be solved by creating a database of employees and saving the information in a file.
+
+
+
+
+
 
                
