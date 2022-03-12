@@ -162,3 +162,66 @@ Behavioural Diagram:
 
 
 ![WhatsApp Image 2022-03-12 at 11 27 08 AM](https://user-images.githubusercontent.com/74421461/158014307-2e1de575-561f-49d9-a6ba-849b0c593c20.jpeg)
+
+
+
+
+Usecase Diagram:-
+
+
+
+
+
+![WhatsApp Image 2022-03-12 at 11 40 11 AM](https://user-images.githubusercontent.com/74421461/158014450-e888f29f-55bf-4986-ac27-9344a7d3d9bc.jpeg)
+
+
+![WhatsApp Image 2022-03-12 at 11 39 37 AM](https://user-images.githubusercontent.com/74421461/158014454-d950b544-afff-43af-87f2-e5c661ca4c03.jpeg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Best Methods To Be Followed
+
+
+Exact Mapping of code to avoid confusions
+Mentioning of both High level and Low level Behavioral and structural diagrams for better understanding
+Followed the exact symbols to make the understanding easier
+Detailed explanation in Low level Behavioural and Structural Diagrams
+
+
+Here are the below steps to run the code
+
+
+For Running and Building the code
+Type make run in terminal
+For Running the Building tests
+Type make run_test in terminal
+For static analysis
+Type make static_analysis in terminal
+For dynamic analysis
+Type make dynamic_analysis in terminal
+For code coverage
+Type make coverage in terminal
+For cleaning
+Type make clean in terminal
+
