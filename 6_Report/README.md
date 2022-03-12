@@ -112,7 +112,18 @@ This issue can be solved by creating a database of employees and saving the info
 
 High Level Requirements:
 
-![WhatsApp Image 2022-03-12 at 12 05 30 PM](https://user-images.githubusercontent.com/74421461/158013992-857d474f-32ac-47e0-ba2f-8182ddcdf25c.jpeg)
+| ID | Description | Category |	Status |
+| ---- | ------------------- | ----- | ---- |
+| HR01 | cilent shall be able to add Employee record | Techincal	| TBD-S1 |
+| HR02 | cilent shall be able to display Employee record | Techincal | TBD-S1 |
+| HR03 | cilent shall be able to update a Employee record	| Techincal |	TBD-S1 |
+| HR04 | cilent shall be able to delete a Employee record	| Techincal |	TBD-S1 |
+| HR05 | cilent shall be able to save records in a file |	Techincal	| TBD-S1 |
+| HR06 | cilent shall be able to read data from a file | Techincal | TBD-S1 |
+| HR07 | Data should not be lost in case of faliure |	Scenario | FUTURE |
+| HR08 | Data should be stored when closing the system | Scenario | TBD-S1 |
+
+
 
 Low level Requirements:
 
