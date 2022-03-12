@@ -28,11 +28,23 @@ Space Complexity:
 O(N) in additional space complexity.
 
 Defining System:
+
+
+
+
 ![WhatsApp Image 2022-03-12 at 11 39 10 AM](https://user-images.githubusercontent.com/74421461/158013573-b61a5b89-1883-4d91-8ce0-22780a43d5c8.jpeg)
                            
 
 
+
+
+
                                 
+
+
+![WhatsApp Image 2022-03-12 at 11 32 32 AM](https://user-images.githubusercontent.com/74421461/158013688-087a756d-d637-4005-93eb-a511177a32f5.jpeg)
+
+
 
 
 
