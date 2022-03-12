@@ -141,4 +141,19 @@ Low level Requirements:
 | LR07 |	After adding each record it asks whether you need to add an another record or Not and Display message as "Y/N" if want to add/modify/delete another record can click Y/N	 | HR01,HR02,HR03,HR04 | TBD-S1 |
 
 
-               
+
+
+Best Methods To Be Followed
+
+Used OOPS concepts to decrease dependency on code
+
+Used Arraylist and arrays to accept the inputs from user and store the values which helped in creating easy design of Employee management system.
+
+Println statements have been placed only wherever necessary to avoid confusions
+
+Created Packages file so that the OOPS concepts can be used else where ever required without any difficulty
+
+Unit testing is done to avoid any computational errors.
+
+
+Behavioural Diagram:
