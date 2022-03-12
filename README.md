@@ -82,3 +82,11 @@ CLASS Creation Steps:
 
 
 [![Android CI](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/android.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/android.yml)
+
+
+
+
+
+
+
+[![Clojure CI](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/clojure.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/clojure.yml)
