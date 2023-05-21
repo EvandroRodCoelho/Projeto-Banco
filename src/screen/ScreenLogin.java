@@ -63,13 +63,13 @@ public class ScreenLogin {
 		frame.getContentPane().add(emailField);
 		emailField.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Email");
-		lblNewLabel.setBounds(31, 29, 46, 14);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblUser = new JLabel("User");
+		lblUser.setBounds(31, 29, 46, 14);
+		frame.getContentPane().add(lblUser);
 
-		JLabel lblNewLabel_1 = new JLabel("Senha");
-		lblNewLabel_1.setBounds(31, 103, 46, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setBounds(31, 103, 46, 14);
+		frame.getContentPane().add(lblSenha);
 
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(163, 195, 89, 23);

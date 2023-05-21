@@ -21,7 +21,7 @@ public class Admin {
 	}
     private void abrirTelaBusca() {
 		frame.dispose();
-		Buscar cadastro = new Buscar();
+		Buscar buscar = new Buscar();
 	}
     private void abrirTelaLista() {
   		frame.dispose();
