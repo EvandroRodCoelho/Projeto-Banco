@@ -12,8 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import screen.Admin.Admin;
-import utils.Validador;
+import screen.Admin.AdminMenuWindow;
+import screen.User.UserMenuWindow;
 
 public class ScreenLogin {
 
@@ -45,8 +45,12 @@ public class ScreenLogin {
 
 	private void openAdminScreen() {
 		frame.dispose();
-		Admin adminScreen = new Admin();
+		AdminMenuWindow adminScreen = new AdminMenuWindow();
 	}
+	private void openMenuUser() {
+    	frame.dispose();
+    	UserMenuWindow user = new UserMenuWindow();
+    }
 
 	private void showErrorDialog(String message) {
 		JOptionPane.showMessageDialog(frame, message, "Falha na autenticação", JOptionPane.ERROR_MESSAGE);
@@ -67,9 +71,9 @@ public class ScreenLogin {
 		lblUser.setBounds(31, 29, 46, 14);
 		frame.getContentPane().add(lblUser);
 
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(31, 103, 46, 14);
-		frame.getContentPane().add(lblSenha);
+		JLabel lblPassword = new JLabel("Senha");
+		lblPassword.setBounds(31, 103, 46, 14);
+		frame.getContentPane().add(lblPassword);
 
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(163, 195, 89, 23);
@@ -83,8 +87,8 @@ public class ScreenLogin {
 
 				//if (Validador.validaEmail(email) && Validador.validaSenha(passwordString)) {
 					boolean authenticateStatus = authenticate(email, passwordString);
-					if (authenticateStatus) {
-						openAdminScreen();
+				if (authenticateStatus) {
+						openMenuUser();
 					} else {
 						showErrorDialog("Falha na autenticação!");
 					}

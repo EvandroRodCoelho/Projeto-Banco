@@ -11,9 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import screen.User.MenuUser;
-
-public class Registration{
+public class RegistrationWindow{
 
     private JFrame frame;
     private JTextField nameField;
@@ -21,13 +19,13 @@ public class Registration{
     private JTextField telefoneField;
     private JTextField enderecoField;
 
-    public Registration() {
+    public RegistrationWindow() {
         initialize();
     }
     
     private void abrirMenu() {
     	frame.dispose();
-    	Admin admin = new Admin();
+    	AdminMenuWindow admin = new AdminMenuWindow();
     }
 
 

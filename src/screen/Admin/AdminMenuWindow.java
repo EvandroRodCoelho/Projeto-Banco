@@ -7,27 +7,27 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Admin {
+public class AdminMenuWindow {
 
     private JFrame frame;
 
-    public Admin() {
+    public AdminMenuWindow() {
         initialize();
     }
     
     private void openRegistrationScreen() {
         frame.dispose();
-        Registration registration = new Registration();
+        RegistrationWindow registration = new RegistrationWindow();
     }
     
     private void openSearchScreen() {
         frame.dispose();
-        Search search = new Search();
+        SearchWindow search = new SearchWindow();
     }
     
     private void openUserListScreen() {
         frame.dispose();
-        UserList userList = new UserList();
+        UserListWindow userList = new UserListWindow();
     }
 
     private void initialize() {

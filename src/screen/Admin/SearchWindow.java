@@ -9,19 +9,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class Search{
+public class SearchWindow{
 
     private JFrame frame;
     private JTextField buscaField;
 
  
 
-    public Search() {
+    public SearchWindow() {
         initialize();
     }
     private void menuOpen() {
     	frame.dispose();
-    	Admin admin = new Admin();
+    	AdminMenuWindow admin = new AdminMenuWindow();
     }
 
 

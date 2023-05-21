@@ -11,19 +11,19 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
-public class UserList {
+public class UserListWindow {
 
     private JFrame frame;
     private JList<String> userList;
     private DefaultListModel<String> listModel;
 
-    public UserList() {
+    public UserListWindow() {
         initialize();
     }
     
     private void openMenu() {
     	frame.dispose();
-    	Admin admin = new Admin();
+    	AdminMenuWindow admin = new AdminMenuWindow();
     }
 
     private void initialize() {
