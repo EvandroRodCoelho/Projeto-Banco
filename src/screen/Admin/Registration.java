@@ -11,15 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class Cadastro{
+import screen.User.MenuUser;
+
+public class Registration{
 
     private JFrame frame;
-    private JTextField nomeField;
+    private JTextField nameField;
     private JTextField cpfField;
     private JTextField telefoneField;
     private JTextField enderecoField;
 
-    public Cadastro() {
+    public Registration() {
         initialize();
     }
     
@@ -27,6 +29,7 @@ public class Cadastro{
     	frame.dispose();
     	Admin admin = new Admin();
     }
+
 
     private void initialize() {
         frame = new JFrame();
@@ -38,10 +41,10 @@ public class Cadastro{
         lblNome.setBounds(50, 50, 80, 14);
         frame.getContentPane().add(lblNome);
     
-        nomeField = new JTextField();
-        nomeField.setBounds(140, 50, 200, 20);
-        frame.getContentPane().add(nomeField);
-        nomeField.setColumns(10);
+        nameField = new JTextField();
+        nameField.setBounds(140, 50, 200, 20);
+        frame.getContentPane().add(nameField);
+        nameField.setColumns(10);
     
         JLabel lblCpf = new JLabel("CPF:");
         lblCpf.setBounds(50, 80, 80, 14);
@@ -83,7 +86,7 @@ public class Cadastro{
         btnCadastrar.setBounds(150, 210, 100, 23);
         btnCadastrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String nome = nomeField.getText();
+                String nome = nameField.getText();
                 String cpf = cpfField.getText();
                 String telefone = telefoneField.getText();
                 String endereco = enderecoField.getText();

@@ -9,17 +9,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class Buscar{
+public class Search{
 
     private JFrame frame;
     private JTextField buscaField;
 
  
 
-    public Buscar() {
+    public Search() {
         initialize();
     }
-    private void abrirMenu() {
+    private void menuOpen() {
     	frame.dispose();
     	Admin admin = new Admin();
     }
@@ -31,9 +31,9 @@ public class Buscar{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        JLabel lblBusca = new JLabel("Buscar:");
-        lblBusca.setBounds(50, 50, 80, 14);
-        frame.getContentPane().add(lblBusca);
+        JLabel lblSearch = new JLabel("Buscar:");
+        lblSearch.setBounds(50, 50, 80, 14);
+        frame.getContentPane().add(lblSearch);
 
         buscaField = new JTextField();
         buscaField.setBounds(140, 50, 200, 20);
@@ -44,16 +44,16 @@ public class Buscar{
         btnBuscar.setBounds(150, 80, 100, 23);
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String termoBusca = buscaField.getText();
+                String SerchTerm = buscaField.getText();
 
                 // Realize a busca utilizando o termo de buscaQ
                 // Exemplo: consultar no banco de dados, realizar uma pesquisa, etc.
 
-                if (termoBusca.isEmpty()) {
+                if (SerchTerm.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Por favor, digite um termo de busca.");
                 } else {
                     // Exiba o resultado da busca
-                    JOptionPane.showMessageDialog(frame, "Resultado da busca para: " + termoBusca);
+                    JOptionPane.showMessageDialog(frame, "Resultado da busca para: " + SerchTerm);
                 }
             }
         });
@@ -62,7 +62,7 @@ public class Buscar{
         JButton btnMenu = new JButton("Voltar menu");
         btnMenu.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		abrirMenu();
+        		menuOpen();
         	}
         });
         btnMenu.setBounds(41, 11, 89, 23);

@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 
 public class Admin {
@@ -15,51 +14,54 @@ public class Admin {
     public Admin() {
         initialize();
     }
-    private void abrirTelaCadastro() {
-		frame.dispose();
-		Cadastro cadastro = new Cadastro();
-	}
-    private void abrirTelaBusca() {
-		frame.dispose();
-		Buscar buscar = new Buscar();
-	}
-    private void abrirTelaLista() {
-  		frame.dispose();
-  		Lista lista = new Lista();
-  	}
+    
+    private void openRegistrationScreen() {
+        frame.dispose();
+        Registration registration = new Registration();
+    }
+    
+    private void openSearchScreen() {
+        frame.dispose();
+        Search search = new Search();
+    }
+    
+    private void openUserListScreen() {
+        frame.dispose();
+        UserList userList = new UserList();
+    }
+
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        JButton btnCadastrar = new JButton("Cadastrar conta");
-        btnCadastrar.setBounds(150, 83, 150, 30);
-        btnCadastrar.addActionListener(new ActionListener() {
+        JButton btnRegister = new JButton("Cadastrar conta");
+        btnRegister.setBounds(150, 83, 150, 30);
+        btnRegister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               abrirTelaCadastro();
+                openRegistrationScreen();
             }
         });
-        frame.getContentPane().add(btnCadastrar);
+        frame.getContentPane().add(btnRegister);
 
-        JButton btnBuscar = new JButton("Buscar");
-        btnBuscar.setBounds(150, 136, 150, 30);
-        btnBuscar.addActionListener(new ActionListener() {
+        JButton btnSearch = new JButton("Buscar");
+        btnSearch.setBounds(150, 136, 150, 30);
+        btnSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Ação para buscar
-               abrirTelaBusca();
+                openSearchScreen();
             }
         });
-        frame.getContentPane().add(btnBuscar);
+        frame.getContentPane().add(btnSearch);
 
-        JButton btnListar = new JButton("Listar");
-        btnListar.setBounds(150, 193, 150, 30);
-        btnListar.addActionListener(new ActionListener() {
+        JButton btnUserList = new JButton("Listar");
+        btnUserList.setBounds(150, 193, 150, 30);
+        btnUserList.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-             abrirTelaLista();
+                openUserListScreen();
             }
         });
-        frame.getContentPane().add(btnListar);
+        frame.getContentPane().add(btnUserList);
         
         JLabel lblMenu = new JLabel("Menu");
         lblMenu.setBounds(203, 28, 97, 30);
@@ -67,6 +69,5 @@ public class Admin {
 
         frame.setVisible(true);
     }
-
 
 }
