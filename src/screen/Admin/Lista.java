@@ -1,6 +1,5 @@
 package screen.Admin;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,9 +8,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class Lista {
@@ -20,11 +17,10 @@ public class Lista {
     private JList<String> userList;
     private DefaultListModel<String> listModel;
 
-   
-
     public Lista() {
         initialize();
     }
+    
     private void abrirMenu() {
     	frame.dispose();
     	Admin admin = new Admin();
@@ -53,7 +49,7 @@ public class Lista {
                 // Limpa a lista antes de adicionar os novos usuários
                 listModel.clear();
 
-                // Adiciona os usuários carregados à listas
+                // Adiciona os usuários carregados à lista
                 for (Usuario usuario : usuarios) {
                     listModel.addElement(usuario.toString());
                 }
@@ -78,11 +74,11 @@ public class Lista {
     // Método de simulação para carregar usuários
     private List<Usuario> carregarUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
-        usuarios.add(new Usuario(1, "João", 1000.0));
-        usuarios.add(new Usuario(2, "Maria", 500.0));
-        usuarios.add(new Usuario(3, "Pedro", 1500.0));
-        usuarios.add(new Usuario(4, "Ana", 2000.0));
-        usuarios.add(new Usuario(5, "Carlos", 800.0));
+        usuarios.add(new Usuario(1, "João", "12345678901", "(11) 9999-9999", "Rua A, 123", "Corrente"));
+        usuarios.add(new Usuario(2, "Maria", "98765432109", "(11) 8888-8888", "Rua B, 456", "Poupança"));
+        usuarios.add(new Usuario(3, "Pedro", "45678912305", "(11) 7777-7777", "Rua C, 789", "Corrente"));
+        usuarios.add(new Usuario(4, "Ana", "78912345603", "(11) 6666-6666", "Rua D, 987", "Corrente"));
+        usuarios.add(new Usuario(5, "Carlos", "32165498707", "(11) 5555-5555", "Rua E, 654", "Poupança"));
         return usuarios;
     }
 
@@ -90,17 +86,23 @@ public class Lista {
     private class Usuario {
         private int id;
         private String nome;
-        private double saldo;
+        private String cpf;
+        private String telefone;
+        private String endereco;
+        private String tipoConta;
 
-        public Usuario(int id, String nome, double saldo) {
+        public Usuario(int id, String nome, String cpf, String telefone, String endereco, String tipoConta) {
             this.id = id;
             this.nome = nome;
-            this.saldo = saldo;
+            this.cpf = cpf;
+            this.telefone = telefone;
+            this.endereco = endereco;
+            this.tipoConta = tipoConta;
         }
 
         @Override
         public String toString() {
-            return "ID: " + id + " | Nome: " + nome + " | Saldo: R$" + saldo;
+            return "ID: " + id + " | Nome: " + nome + " | CPF: " + cpf + " | Telefone: " + telefone + " | Endereço: " + endereco + " | Tipo de Conta: " + tipoConta;
         }
     }
 }
