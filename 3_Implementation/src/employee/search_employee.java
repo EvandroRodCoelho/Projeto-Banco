@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,8 +21,8 @@ class search_employee implements ActionListener{
         l1=new JLabel();
         l1.setBounds(0,0,500,270);
         l1.setLayout(null);
-        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/view.jpg"));
-        l1.setIcon(img);
+//        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/view.jpg"));
+//        l1.setIcon(img);
 
 
         l2=new JLabel("Employee Id");
@@ -59,17 +59,17 @@ class search_employee implements ActionListener{
 
         if(ae.getSource()==b2){
             frame.setVisible(false);
-            details_page d=new details_page();
+            new details_page();
         }
         if(ae.getSource()==b1){
             frame.setVisible(false);
             String eid = t.getText();
-            update_employee p=new update_employee(eid);
+            new update_employee(eid);
         }
 
     }
 
     public static void main(String[]ar){
-        search_employee v=new search_employee();
+        new search_employee();
     }
 }

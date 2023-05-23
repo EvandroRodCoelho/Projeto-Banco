@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 
 import java.sql.*;
@@ -20,8 +20,8 @@ class remove_employee implements ActionListener{
         l5=new JLabel();
         l5.setBounds(0,0,500,500);
         l5.setLayout(null);
-        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/remove.jpg"));
-        l5.setIcon(img);
+//        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/remove.jpg"));
+//        l5.setIcon(img);
         frame.add(l5);
 
         
@@ -166,11 +166,11 @@ class remove_employee implements ActionListener{
         // When cancel button pressed
         if(ae.getSource()==b2){
             frame.setVisible(false);
-            details_page d=new details_page();
+            new details_page();
         }
         if(ae.getSource()==b3){
             frame.setVisible(false);
-            details_page d=new details_page();
+            new details_page();
         }
     }
 

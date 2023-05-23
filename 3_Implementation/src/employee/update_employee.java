@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import java.sql.*;
@@ -26,8 +26,8 @@ class update_employee  implements ActionListener{
         id15=new JLabel();
         id15.setBounds(0,0,900,500);
         id15.setLayout(null);
-        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/update.jpg"));
-        id15.setIcon(img);
+//        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/update.jpg"));
+//        id15.setIcon(img);
 
         id8 = new JLabel("Update Employee Detail:");
         id8.setBounds(50,10,500,50);
@@ -183,7 +183,7 @@ class update_employee  implements ActionListener{
         }
         if(ae.getSource()==b1){
             f.setVisible(false);
-            details_page d=new details_page();
+            new details_page();
         }
     }
 

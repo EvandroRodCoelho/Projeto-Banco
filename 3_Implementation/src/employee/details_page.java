@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 
 import java.awt.*;
@@ -22,8 +22,8 @@ public class details_page implements ActionListener {
 		l1 = new JLabel();
 		l1.setBounds(0,0,700,500);
 		l1.setLayout(null);
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/details.png"));
-		l1.setIcon(i1);
+//		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/details.png"));
+//		l1.setIcon(i1);
 		frame.add(l1);
 		
 		
@@ -106,6 +106,7 @@ public class details_page implements ActionListener {
 	
 	
 	public static void main(String [] args) {
-		details_page det = new details_page();
+		new details_page();
 	}
+}
 	

@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import javax.swing.*;
@@ -40,12 +40,12 @@ class login_page implements ActionListener {
 		t2.setBounds(150,70,150,30);
 		frame.add(t2);
 		
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/login.png"));
-		Image i2 = i1.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); // resize our image size.
-		ImageIcon i3 = new ImageIcon(i2);  // convert image into imageicon
-		JLabel l3 =  new JLabel(i3); // set imageicon on label
-		l3.setBounds(350,20,150,150);
-		frame.add(l3); // finally, add label on welcome frame.
+//		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/login.png"));
+//		Image i2 = i1.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT); // resize our image size.
+//		ImageIcon i3 = new ImageIcon(i2);  // convert image into image icon
+//		JLabel l3 =  new JLabel(i3); // set image icon on label
+//		l3.setBounds(350,20,150,150);
+//		frame.add(l3); // finally, add label on welcome frame.
 		
 		b1 = new JButton("Login");
 		b1.setBackground(Color.BLACK);
@@ -86,7 +86,7 @@ class login_page implements ActionListener {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		
-		try {
+		try {	
 			conn c1 = new conn();
 			String u = t1.getText();
 			String p = t2.getText();
@@ -95,7 +95,7 @@ class login_page implements ActionListener {
 			
 			ResultSet rs = c1.st.executeQuery(q); // used to retrieve data from database using conn.s.executeQuery()
 			
-			if(rs.next()) {  //used to match username and password
+			if(rs.next()) {  //used to match user name and password
 				new details_page().frame.setVisible(true); // open details page and make visible also. 
 				frame.setVisible(false); // close login page
 			}else {
@@ -109,7 +109,7 @@ class login_page implements ActionListener {
 	
 	
 	public static void main(String[] args) {
-		login_page login =  new login_page();
+		new login_page();
 	}
 	
 }

@@ -1,8 +1,7 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 
 
@@ -23,8 +22,8 @@ public class add_employee implements ActionListener {
         box = new JLabel();
         box.setBounds(0,0,900,700);
         box.setLayout(null);
-        ImageIcon img = new ImageIcon(ClassLoader.getSystemResource("icon/add.jpg"));
-        box.setIcon(img);
+//        ImageIcon img = new ImageIcon(ClassLoader.getSystemResource("icon/add.jpg"));
+//        box.setIcon(img);
 
         title = new JLabel("New Employee Details");
         title.setBounds(320,30,500,50);
@@ -219,5 +218,6 @@ public class add_employee implements ActionListener {
 	public static void main(String[] args) {
 		new add_employee();
 	}
+}
 	 
 	

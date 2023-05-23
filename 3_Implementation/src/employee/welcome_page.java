@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import javax.swing.*;
@@ -19,13 +19,13 @@ class welcome_page implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/welcome.jpg"));
-		Image i2 = i1.getImage().getScaledInstance(1050, 650, Image.SCALE_DEFAULT); // resize our image size.
-		ImageIcon i3 = new ImageIcon(i2);  // convert image into imageicon
+//		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/welcome.jpg"));
+//		Image i2 = i1.getImage().getScaledInstance(1050, 650, Image.SCALE_DEFAULT); // resize our image size.
+//		ImageIcon i3 = new ImageIcon(i2);  // convert image into image icon
 		
-		JLabel l1 =  new JLabel(i3); // set imageicon on label
-		l1.setBounds(30,140,1165,430);
-		frame.add(l1); // finally, add label on welcome frame.
+//		JLabel l1 =  new JLabel(i3); // set image icon on label
+//		l1.setBounds(30,140,1165,430);
+//		frame.add(l1); // finally, add label on welcome frame.
 		
 		JButton b = new JButton("Click Here To Continue");
 		b.setBackground(Color.DARK_GRAY);
@@ -67,20 +67,17 @@ class welcome_page implements ActionListener {
 				
 		}
 		
-		
 	}
 
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 			frame.setVisible(false);
-			 new login_page();  // open login page on button click
-		
+			new login_page();  // open login page on button click		
 	}
 	
 	public static void main(String [] args) {
-		welcome_page wel = new welcome_page();
+		new welcome_page();
 	}
 	
 }

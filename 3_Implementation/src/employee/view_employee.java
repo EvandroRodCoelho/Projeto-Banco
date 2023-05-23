@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -19,8 +19,8 @@ class view_employee implements ActionListener{
         l1=new JLabel();
         l1.setBounds(0,0,500,270);
         l1.setLayout(null);
-        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/view.jpg"));
-        l1.setIcon(img);
+//        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/view.jpg"));
+//        l1.setIcon(img);
 
 
         l2=new JLabel("Employee Id");
@@ -57,16 +57,16 @@ class view_employee implements ActionListener{
 
         if(ae.getSource()==b2){
             frame.setVisible(false);
-            details_page d=new details_page();
+            new details_page();
         }
         if(ae.getSource()==b1){
             frame.setVisible(false);
-            print_data p=new print_data(t.getText());
+            new print_data(t.getText());
         }
 
     }
 
     public static void main(String[]ar){
-        view_employee v=new view_employee();
+        new view_employee();
     }
 }

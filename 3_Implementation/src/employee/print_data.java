@@ -1,4 +1,4 @@
-package Employee;
+package employee;
 
 import java.awt.*;
 import javax.swing.*;
@@ -50,8 +50,8 @@ class print_data implements ActionListener{
         id9=new JLabel();
         id9.setBounds(0,0,595,642);
         id9.setLayout(null);
-        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/print.jpg"));
-        id9.setIcon(img);
+//        ImageIcon img=new ImageIcon(ClassLoader.getSystemResource("icon/print.jpg"));
+//        id9.setIcon(img);
 
         id8 = new JLabel("Employee Details");
         id8.setBounds(50,10,250,30);
@@ -168,7 +168,7 @@ class print_data implements ActionListener{
         if(ae.getSource()==b1){
             JOptionPane.showMessageDialog(null,"printed successfully");
             f.setVisible(false);
-            details_page d=new details_page();
+            new details_page();
         }
         if(ae.getSource()==b2){
             f.setVisible(false);
