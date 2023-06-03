@@ -1,0 +1,87 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "UpdatePage",
+            "request": "launch",
+            "mainClass": "view.employee.UpdatePage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "AddUser",
+            "request": "launch",
+            "mainClass": "view.employee.AddUser",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "DetailsPage",
+            "request": "launch",
+            "mainClass": "view.employee.DetailsPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "LoginPage",
+            "request": "launch",
+            "mainClass": "view.employee.LoginPage",
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "RemoveUser",
+            "request": "launch",
+            "mainClass": "view.employee.RemoveUser",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "WelcomePage",
+            "request": "launch",
+            "mainClass": "view.employee.WelcomePage",
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "print_data",
+            "request": "launch",
+            "mainClass": "view.employee.print_data",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "search_employee",
+            "request": "launch",
+            "mainClass": "view.employee.search_employee",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "update_employee",
+            "request": "launch",
+            "mainClass": "view.employee.update_employee",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "view_employee",
+            "request": "launch",
+            "mainClass": "view.employee.view_employee",
+            "projectName": "App_81925740"
+        }
+    ]
+}
