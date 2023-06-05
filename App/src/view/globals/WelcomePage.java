@@ -1,4 +1,4 @@
-package view.admin;
+package view.globals;
 
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;

@@ -1,4 +1,4 @@
-package view.admin;
+package view.globals;
 
 import java.sql.ResultSet;
 
@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.utils.ButtonComponent;
+import view.admin.DetailsPage;
+import view.admin.conn;
 import view.utils.AlertUtil;
 
 public class LoginPage extends Application {
