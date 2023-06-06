@@ -18,16 +18,16 @@ import java.sql.*;
 
 public class conn {
 
-	//Create two interface
-	public Connection c;  // used to set up connection with
-	public Statement st;  // used to execute all queries of 
+
+	public Connection c;  
+	public Statement st; 
 	
 	public conn() {
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver"); // 
+			Class.forName("com.mysql.cj.jdbc.Driver"); 
 			c = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_java?useSSL=false&serverTimezone=UTC","root","");
-			st = c.createStatement(); // helpful to execute query
+			st = c.createStatement(); 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

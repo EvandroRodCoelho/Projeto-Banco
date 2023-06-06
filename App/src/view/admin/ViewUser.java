@@ -64,7 +64,7 @@ public class ViewUser extends Application {
             AlertUtil.showErrorAlert(primaryStage, "Digite um id");
             return;
         }
-        PrintData printData = new PrintData(idClient,primaryStage);
+       new PrintData(idClient,primaryStage);
     }
 
     private void handleCancelButton() {

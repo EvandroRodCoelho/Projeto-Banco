@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DepositPage",
+            "request": "launch",
+            "mainClass": "view.user.DepositPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
             "name": "DetailsUserPage",
             "request": "launch",
             "mainClass": "view.user.DetailsUserPage",
