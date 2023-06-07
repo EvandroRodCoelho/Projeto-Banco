@@ -37,7 +37,7 @@ This project was developed by the following contributors:
 
 To run the JavaFX Bank Application locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your/repository.git](https://github.com/EvandroRodCoelho/Projeto-Banco.git`
+1. Clone the repository: `git clone https://github.com/EvandroRodCoelho/Projeto-Banco.git`
 2. Open the project in your preferred Java development environment.
 3. Set up the MySQL database and configure the connection settings in the application.
 4. Build and run the application.
