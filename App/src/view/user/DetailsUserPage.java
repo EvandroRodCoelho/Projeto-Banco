@@ -1,4 +1,7 @@
 package view.user;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,12 +13,20 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.AppSession;
+import model.Conta;
+import model.Usuario;
+import view.admin.conn;
 import view.utils.ButtonComponent;
 
 public class DetailsUserPage extends Application {
 
     private GridPane gridPane;
     private ButtonComponent withdrawButton, depositButton, transferButton, balanceCheckButton, logoutButton, deleteAccountButton;
+
+    public DetailsUserPage() {
+        this.getContaUsuario();
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -131,6 +142,31 @@ public class DetailsUserPage extends Application {
                
             }
         });
+    }
+
+    private void getContaUsuario(){
+        try {
+            Usuario usuarioLogado = AppSession.getUsuarioLogado();
+            
+            conn c1 = new conn();
+            String query = "select * from contas where usuarioid = '" + usuarioLogado.getId() + "'";
+
+            ResultSet rs = c1.st.executeQuery(query);
+
+            if (rs.next()) {                
+                int id = rs.getInt("id");  
+                int usuarioid = rs.getInt("usuarioId");   
+                int tipoConta = rs.getInt("tipoConta");                 
+                double saldo = rs.getDouble("saldo");
+                String titular = rs.getString("titular");
+                String numConta = rs.getString("numConta");
+    
+                Conta conta1 = new Conta(numConta, titular, saldo, tipoConta, usuarioid, id);
+                AppSession.setContaUsuarioLogado(conta1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
