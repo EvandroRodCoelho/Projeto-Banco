@@ -15,7 +15,7 @@ import view.utils.ButtonComponent;
 public class ViewUser extends Application {
 
     private Stage primaryStage;
-    private TextField clientIdTextField;
+    private TextField usuarioIdTextField;
     private Label label;
     private Button searchButton;
     private Button cancelButton;
@@ -27,25 +27,25 @@ public class ViewUser extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("View Cliente");
+        this.primaryStage.setTitle("Visualizar Usuários");
 
         VBox layout = new VBox();
         layout.setSpacing(10);
         layout.setPadding(new Insets(10));
 
-        label = new Label("Cliente ID");
+        label = new Label("Usuário ID");
         label.setStyle("-fx-font-size: 20;");
         layout.getChildren().add(label);
 
-        clientIdTextField = new TextField();
-        clientIdTextField.setPromptText("Cliente ID");
-        layout.getChildren().add(clientIdTextField);
+        usuarioIdTextField = new TextField();
+        usuarioIdTextField.setPromptText("Usuário ID");
+        layout.getChildren().add(usuarioIdTextField);
 
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10, 0, 0, 0));
 
         searchButton = new ButtonComponent("Pesquisar", "#1E488F", "white");
-        searchButton.setOnAction(e -> handleSearchButton(clientIdTextField.getText()));
+        searchButton.setOnAction(e -> handleSearchButton(usuarioIdTextField.getText()));
         buttonBox.getChildren().add(searchButton);
 
         cancelButton = new ButtonComponent("Cancelar", "#dc3545", "white");
@@ -59,12 +59,12 @@ public class ViewUser extends Application {
         primaryStage.show();
     }
 
-    private void handleSearchButton(String idClient) {
-        if (idClient.isEmpty()) {
-            AlertUtil.showErrorAlert(primaryStage, "Digite um id");
+    private void handleSearchButton(String id) {
+        if (id.isEmpty()) {
+            AlertUtil.showErrorAlert(primaryStage, "Digite um ID");
             return;
         }
-       new PrintData(idClient,primaryStage);
+       new PrintData(id,primaryStage);
     }
 
     private void handleCancelButton() {
