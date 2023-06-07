@@ -1,4 +1,5 @@
 package  view.user;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,16 +13,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.AppSession;
+import view.admin.conn;
+import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class DepositPage extends Application {
+    private Stage stage;
 
     private GridPane gridPane;
     private ButtonComponent depositButton;
     private Button cancelButton;
     private TextField amountTextField;
     private Label balanceLabel;
-    private String  amountText;
 
     @Override
     public void start(Stage primaryStage) {
@@ -40,7 +44,7 @@ public class DepositPage extends Application {
         amountTextField.setPromptText("Digite o valor a ser depositado");
         amountTextField.setPrefWidth(250); 
 
-        balanceLabel = new Label("Saldo atual: R$ 0.00");
+        balanceLabel = new Label("Saldo atual: " + AppSession.getContaUsuarioLogado().getSaldo());
 
         HBox buttonBox = new HBox(10); 
         buttonBox.getChildren().addAll(depositButton, cancelButton);
@@ -65,23 +69,38 @@ public class DepositPage extends Application {
     }
 
     private void handleDeposit(){
-   
-        double currentBalance = getCurrentBalance(); 
-        double newBalance = currentBalance + 100;
-        setBalanceLabel(newBalance);
+        String amountField = amountTextField.getText();
 
+        double amountConverted = Integer.parseInt(amountTextField.getText());
+        double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
+        double totalAmount = amountConverted + currentAmount;
+
+        if (!amountField.isEmpty()) {
+            try {
+                String query = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() + 
+                    "', titular='" + AppSession.getContaUsuarioLogado().getTitular() + 
+                    "', saldo='" + totalAmount + 
+                    "', tipoconta='" + AppSession.getContaUsuarioLogado().getTipoConta() + 
+                    "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() + 
+                    "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
+                
+                conn c1 = new conn();
+                int rowsAffected = c1.st.executeUpdate(query);
+
+                if (rowsAffected > 0) {
+                    AlertUtil.showSuccessAlert(stage, "Depositado com sucesso");
+                    goBackToDetailsPage();
+                } else {
+                    AlertUtil.showErrorAlert(null, "Erro ao depositar!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            AlertUtil.showErrorAlert(null, "O campo está vazio!");
+        }
 
         amountTextField.clear();
-    }
-
-    private double getCurrentBalance() {
-        // Lógica para obter o saldo atual do usuário
-        // Substitua esse método com a sua lógica real para obter o saldo atual do usuário
-        return 0.00;
-    }
-
-    private void setBalanceLabel(double balance) {
-        balanceLabel.setText("Saldo atual: R$ " + balance);
     }
 
     private void goBackToDetailsPage() {
