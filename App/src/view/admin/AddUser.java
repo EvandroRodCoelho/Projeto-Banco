@@ -19,8 +19,8 @@ import java.sql.SQLException;
 
 public class AddUser extends Application {
     private Stage stage;
-    private TextField nameTextField, fatherNameTextField, ageTextField, dobTextField, addressTextField,
-            phoneTextField, emailTextField, educationTextField, jobPostTextField, aadharNoTextField, empIdTextField;
+
+    private TextField nomeTextField, emailTextField, senhaTextField, acessoTextField;
     private Button cancelButton;
 
     @Override
@@ -47,75 +47,33 @@ public class AddUser extends Application {
     }
 
     private void addUIControls(GridPane gridPane) {
-        Label titleLabel = new Label("Adicionar Cliente");
+        Label titleLabel = new Label("Adicionar Usuário");
         titleLabel.setFont(new Font("serif", 25));
         gridPane.add(titleLabel, 0, 0, 2, 1);
 
-        Label nameLabel = new Label("Nome:");
-        gridPane.add(nameLabel, 0, 1);
+        Label nomeLabel = new Label("Nome:");
+        gridPane.add(nomeLabel, 0, 1);
 
-        nameTextField = new TextField();
-        gridPane.add(nameTextField, 1, 1);
+        nomeTextField = new TextField();
+        gridPane.add(nomeTextField, 1, 1);
 
-        Label fatherNameLabel = new Label("Nome do Pai:");
-        gridPane.add(fatherNameLabel, 0, 2);
-
-        fatherNameTextField = new TextField();
-        gridPane.add(fatherNameTextField, 1, 2);
-
-        Label ageLabel = new Label("Idade:");
-        gridPane.add(ageLabel, 0, 3);
-
-        ageTextField = new TextField();
-        gridPane.add(ageTextField, 1, 3);
-
-        Label dobLabel = new Label("Aniversário:");
-        gridPane.add(dobLabel, 0, 4);
-
-        dobTextField = new TextField();
-        gridPane.add(dobTextField, 1, 4);
-
-        Label addressLabel = new Label("Endereço:");
-        gridPane.add(addressLabel, 0, 5);
-
-        addressTextField = new TextField();
-        gridPane.add(addressTextField, 1, 5);
-
-        Label phoneLabel = new Label("Telefone:");
-        gridPane.add(phoneLabel, 0, 6);
-
-        phoneTextField = new TextField();
-        gridPane.add(phoneTextField, 1, 6);
-
-        Label emailLabel = new Label("Email:");
-        gridPane.add(emailLabel, 0, 7);
+        Label EmailLabel = new Label("Email:");
+        gridPane.add(EmailLabel, 0, 2);
 
         emailTextField = new TextField();
-        gridPane.add(emailTextField, 1, 7);
+        gridPane.add(emailTextField, 1, 2);
 
-        Label educationLabel = new Label("Education:");
-        gridPane.add(educationLabel, 0, 8);
+        Label senhaLabel = new Label("Senha:");
+        gridPane.add(senhaLabel, 0, 3);
 
-        educationTextField = new TextField();
-        gridPane.add(educationTextField, 1, 8);
+        senhaTextField = new TextField();
+        gridPane.add(senhaTextField, 1, 3);
 
-        Label jobPostLabel = new Label("Trabalho:");
-        gridPane.add(jobPostLabel, 0, 9);
+        Label acessoLabel = new Label("Acesso:");
+        gridPane.add(acessoLabel, 0, 4);
 
-        jobPostTextField = new TextField();
-        gridPane.add(jobPostTextField, 1, 9);
-
-        Label aadharNoLabel = new Label("Aadhar No:");
-        gridPane.add(aadharNoLabel, 0, 10);
-
-        aadharNoTextField = new TextField();
-        gridPane.add(aadharNoTextField, 1, 10);
-
-        Label empIdLabel = new Label(" Id:");
-        gridPane.add(empIdLabel, 0, 11);
-
-        empIdTextField = new TextField();
-        gridPane.add(empIdTextField, 1, 11);
+        acessoTextField = new TextField();
+        gridPane.add(acessoTextField, 1, 4);
 
         Button submitButton = new ButtonComponent("Enviar", "#1E488F", "white");
         HBox submitHBox = new HBox(10);
@@ -146,24 +104,15 @@ public class AddUser extends Application {
 
     private void insertEmployeeDetails() {
         setInputsAndButtonsEnabled(false);
-        String name = nameTextField.getText();
-        String fatherName = fatherNameTextField.getText();
-        String age = ageTextField.getText();
-        String dob = dobTextField.getText();
-        String address = addressTextField.getText();
-        String phone = phoneTextField.getText();
+        String nome = nomeTextField.getText();
         String email = emailTextField.getText();
-        String education = educationTextField.getText();
-        String jobPost = jobPostTextField.getText();
-        String aadharNo = aadharNoTextField.getText();
-        String empId = empIdTextField.getText();
+        String senha = senhaTextField.getText();
+        String acesso = acessoTextField.getText();
 
         try {
             conn c1 = new conn();
-            String query = "INSERT INTO employee (name, fname, age, dob, address, phone, email, education, post, aadhar, emp_id) VALUES ('"
-                    + name + "', '" + fatherName + "', '" + age + "', '" + dob + "', '" + address + "', '" + phone
-                    + "', '" + email + "', '" + education + "', '" + jobPost + "', '" + aadharNo + "', '" + empId
-                    + "')";
+            String query = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
+                + nome + "', '" + email + "', '" + senha + "', '" + Integer.parseInt(acesso) + "')";
             int rowsAffected = c1.st.executeUpdate(query);
 
             if (rowsAffected > 0) {
@@ -180,32 +129,19 @@ public class AddUser extends Application {
         stage.close();
         new DetailsPage().start(new Stage());
     }
+    
     private void setInputsAndButtonsEnabled(boolean enabled) {
-        nameTextField.setDisable(!enabled);
-        fatherNameTextField.setDisable(!enabled);
-        ageTextField.setDisable(!enabled);
-        dobTextField.setDisable(!enabled);
-        addressTextField.setDisable(!enabled);
-        phoneTextField.setDisable(!enabled);
+        nomeTextField.setDisable(!enabled);
         emailTextField.setDisable(!enabled);
-        educationTextField.setDisable(!enabled);
-        jobPostTextField.setDisable(!enabled);
-        aadharNoTextField.setDisable(!enabled);
-        empIdTextField.setDisable(!enabled);
-        cancelButton.setDisable(!enabled);
+        senhaTextField.setDisable(!enabled);
+        acessoTextField.setDisable(!enabled);
     }
+    
     private void clearInputs() {
-        nameTextField.clear();
-        fatherNameTextField.clear();
-        ageTextField.clear();
-        dobTextField.clear();
-        addressTextField.clear();
-        phoneTextField.clear();
+        nomeTextField.clear();
         emailTextField.clear();
-        educationTextField.clear();
-        jobPostTextField.clear();
-        aadharNoTextField.clear();
-        empIdTextField.clear();
+        senhaTextField.clear();
+        acessoTextField.clear();
     }
     
     public static void main(String[] args) {
