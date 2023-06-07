@@ -1,5 +1,8 @@
 package view.user;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.AppSession;
 import view.utils.ButtonComponent;
 
 public class BalanceCheckPage extends Application {
@@ -30,7 +34,7 @@ public class BalanceCheckPage extends Application {
         cancelButton = createButton("Cancelar", "#D32F2F", "white");
         cancelButton.setOnAction(e -> goBackToDetailsPage());
 
-        balanceLabel = new Label("Seu saldo atual é: R$ " + getCurrentBalance());
+        balanceLabel = new Label("Seu saldo atual é: R$ " + AppSession.getContaUsuarioLogado().getSaldo());
 
         HBox buttonBox = new HBox(10);
         buttonBox.getChildren().addAll(cancelButton);
@@ -51,12 +55,6 @@ public class BalanceCheckPage extends Application {
 
     private ButtonComponent createButton(String text, String backgroundColor, String textColor) {
         return new ButtonComponent(text, backgroundColor, textColor);
-    }
-
-    private double getCurrentBalance() {
-        // Lógica para obter o saldo atual do usuário
-        // Substitua esse método com a sua lógica real para obter o saldo atual do usuário
-        return 0.00;
     }
 
     private void goBackToDetailsPage() {
