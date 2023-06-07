@@ -24,8 +24,8 @@ import view.utils.AlertUtil;
 
 public class LoginPage extends Application {
     private Stage stage;
-    private TextField usernameField;
-    private PasswordField passwordField;
+    private TextField emailField;
+    private PasswordField senhaField;
     private Button loginButton, cancelButton;
 
     public static void main(String[] args) throws Exception{
@@ -63,16 +63,16 @@ public class LoginPage extends Application {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
 
-        Label usernameLabel = new Label("User:");
-        usernameField = new TextField();
+        Label emaiLabel = new Label("Email:");
+        emailField = new TextField();
 
-        Label passwordLabel = new Label("Senha:");
-        passwordField = new PasswordField();
+        Label senhaLabel = new Label("Senha:");
+        senhaField = new PasswordField();
 
-        gridPane.add(usernameLabel, 0, 0);
-        gridPane.add(usernameField, 1, 0);
-        gridPane.add(passwordLabel, 0, 1);
-        gridPane.add(passwordField, 1, 1);
+        gridPane.add(emaiLabel, 0, 0);
+        gridPane.add(emailField, 1, 0);
+        gridPane.add(senhaLabel, 0, 1);
+        gridPane.add(senhaField, 1, 1);
 
         return gridPane;
     }
@@ -82,19 +82,19 @@ public class LoginPage extends Application {
     }
 
     private void login() {
-        String username = usernameField.getText();
-		String password = passwordField.getText();
+        String email = emailField.getText();
+		String senha = senhaField.getText();
 
-        if (username == "" || password == "") {
-            AlertUtil.showErrorAlert(stage, "Login Invalido!");
+        if (email == "" || senha == "") {
+            AlertUtil.showErrorAlert(stage, "Login inválido!");
             return;
         }
         try {
             conn c1 = new conn();
-            usernameField.setDisable(true);
-            passwordField.setDisable(true);
+            emailField.setDisable(true);
+            senhaField.setDisable(true);
             cancelButton.setDisable(true);
-			String query = "select * from usuario where email='"+username+"' and senha='"+password+"' ";
+			String query = "select * from usuario where email='"+ email +"' and senha='"+ senha +"' ";
             ResultSet result = c1.st.executeQuery(query);
             if (result.next()) {
                 int acesso = result.getInt("acesso");
@@ -116,7 +116,10 @@ public class LoginPage extends Application {
                     stage.close();
                 }
             } else {
-                AlertUtil.showErrorAlert(stage, "Login Invalido!"); 
+                AlertUtil.showErrorAlert(stage, "Login inválido!"); 
+                Stage viewWelcomeStage = new Stage();
+                WelcomePage viewEmployeePage = new WelcomePage();
+                viewEmployeePage.start(viewWelcomeStage);
             }
         } catch (Exception ex) {
             AlertUtil.showErrorAlert(stage,"Ocorreu um erro inesperado!");
