@@ -1,123 +1,47 @@
-# M3_EmployeeManagementSystem_Utility
+# JavaFX Bank Application
 
+The JavaFX Bank Application is a Java project that utilizes JavaFX and MySQL to create a banking system. It consists of two main parts: an admin section and a user section.
 
+## Features
 
-Admin View
+### Admin Section
 
-The administrator can view hours worked by employee and view salary earned so far by each employee by typing employee username in searchbox
-The administrator can approve/not approve leave request filed by employees. If the request is approved, employee can view in his leave page that his leave is approved.
-The administrator can view all employees in the company and delete employees/update their salary
+The admin section allows authorized users to perform CRUD (Create, Read, Update, Delete) operations on user accounts.
 
+### User Section
 
-Employee View
+The user section provides the following functionalities:
 
-The employee can log in attendance by submitting enter time and exit time for that particular day
-The employee can view his own salary earned so far
-The employee can submit request to take leave and specify reason. It can be approved/not approved by administrator
-The employee can view his profile
+- Withdraw funds from a user account.
+- Deposit funds into a user account.
+- Check the balance of a user account.
+- Create a new user account.
+- Delete a user account.
+- Exit the application.
 
+## Technologies Used
 
+- JavaFX: A framework for building Java desktop applications with a rich user interface.
+- MySQL: A popular open-source relational database management system.
+- Java: The primary programming language used for developing the application.
 
+## Contributors
 
+This project was developed by the following contributors:
 
+- Evandro Rodrigues Coelho
+- Fabricio Lima Costa
+- Nathalia Araujo
 
+## Getting Started
 
+To run the JavaFX Bank Application locally, follow these steps:
 
+1. Clone the repository: `git clone https://github.com/EvandroRodCoelho/Projeto-Banco.git`
+2. Open the project in your preferred Java development environment.
+3. Set up the MySQL database and configure the connection settings in the application.
+4. Build and run the application.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-CLASS Creation Steps:
-
-1.conn
-
-2.welcome_page
-
-3.login_page
-
-4.details_page
-
-5.add_employee
-
-6.view_employee
-
-7.print_data
-
-8.remove_employee
-
-9.search_employee
-
-10.update_employee
-
-
-
-![WhatsApp Image 2022-03-12 at 11 40 11 AM](https://user-images.githubusercontent.com/74421461/158014450-e888f29f-55bf-4986-ac27-9344a7d3d9bc.jpeg)
-
-
-![WhatsApp Image 2022-03-12 at 11 39 37 AM](https://user-images.githubusercontent.com/74421461/158014454-d950b544-afff-43af-87f2-e5c661ca4c03.jpeg)
-                       
-
-
-
-
-
-
-
-
-
-
-
-
-[![Android CI](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/android.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/android.yml)
-
-
-
-
-
-
-
-[![Clojure CI](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/clojure.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/clojure.yml)
-
-
-
-
-
-
-[![Java CI with Gradle](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/DVTkrishna/M3_EmployeeManagementSystem_Utility/actions/workflows/gradle-publish.yml)
-
-
-
-
-![Code Quality Score ](https://api.codiga.io/project/31993/score/svg)
-
-
-
-
-![Code Grade](https://api.codiga.io/project/31993/status/svg)
-
-
-
-
-
-
-References:---
-
-
->You tube Java programming learning
-
->greefs for greeks
 
 
