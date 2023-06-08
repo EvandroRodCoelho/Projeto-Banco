@@ -1,33 +1,33 @@
 package view.admin;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.application.Application;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Usuario;
 import view.utils.ButtonComponent;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class ListUsersPage extends Application {
 
     private TableView<Usuario> table;
-    private TextField nomeFilterInput;
+    private TextField nameFilterInput;
     private TextField emailFilterInput;
     private TextField idFilterInput;
-    private ComboBox<String> acessoFilterComboBox;
+    private ComboBox<String> accessFilterComboBox;
     private ButtonComponent cancelButton;
 
     @Override
@@ -45,22 +45,33 @@ public class ListUsersPage extends Application {
 
         TableColumn<Usuario, String> acessoColumn = new TableColumn<>("Nível de Acesso");
         acessoColumn.setCellValueFactory(new PropertyValueFactory<>("acesso"));
-    
+
         table = new TableView<>();
         table.getColumns().addAll(idColumn, nomeColumn, emailColumn, acessoColumn);
 
-        nomeFilterInput = createTextField("Nome");
-        emailFilterInput = createTextField("Email");
-        idFilterInput = createTextField("ID");
-        acessoFilterComboBox = createComboBox();
-        acessoFilterComboBox.setOnAction(this::handleComboBoxAction);
+        nameFilterInput = new TextField();
+        nameFilterInput.setPromptText("Nome");
+        nameFilterInput.setOnKeyReleased(e -> filterUsers());
+
+        emailFilterInput = new TextField();
+        emailFilterInput.setPromptText("Email");
+        emailFilterInput.setOnKeyReleased(e -> filterUsers());
+
+        idFilterInput = new TextField();
+        idFilterInput.setPromptText("ID");
+        idFilterInput.setOnKeyReleased(e -> filterUsers());
+
+        accessFilterComboBox = new ComboBox<>();
+        accessFilterComboBox.getItems().addAll("1", "2");
+        accessFilterComboBox.setPromptText("Nível de Acesso");
+        accessFilterComboBox.setOnAction(e -> filterUsers());
 
         HBox filterBox = new HBox(10);
-        filterBox.getChildren().addAll(nomeFilterInput, emailFilterInput, idFilterInput, acessoFilterComboBox);
+        filterBox.getChildren().addAll(nameFilterInput, emailFilterInput, idFilterInput, accessFilterComboBox);
         filterBox.setPadding(new Insets(10));
 
         cancelButton = createButton("Sair", "#D32F2F", "white");
-        cancelButton.setOnAction(this::handleCancelButtonAction);
+        cancelButton.setOnAction(e -> handleCancelButton(e));
 
         HBox buttonBox = new HBox(cancelButton);
         buttonBox.setPadding(new Insets(10));
@@ -73,8 +84,6 @@ public class ListUsersPage extends Application {
 
         ObservableList<Usuario> users = getUsersFromDatabase();
         table.setItems(users);
-
-        addFocusManagement();
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
@@ -122,27 +131,28 @@ public class ListUsersPage extends Application {
     }
 
     private boolean filterUser(Usuario user) {
-        String nomeFilter = nomeFilterInput.getText().toLowerCase();
+        String nomeFilter = nameFilterInput.getText().toLowerCase();
         String emailFilter = emailFilterInput.getText().toLowerCase();
         String idFilter = idFilterInput.getText().toLowerCase();
-        String acessoFilter = acessoFilterComboBox.getValue().toLowerCase();
-
+        String acessoFilter = accessFilterComboBox.getValue();
+    
         String nome = user.getNome().toLowerCase();
         String email = user.getEmail().toLowerCase();
         String id = String.valueOf(user.getId()).toLowerCase();
         String acesso = String.valueOf(user.getAcesso()).toLowerCase();
-
+    
+        if (acessoFilter != null) {
+            acessoFilter = acessoFilter.toLowerCase();
+        }
+    
         return nome.contains(nomeFilter) &&
                 email.contains(emailFilter) &&
                 id.contains(idFilter) &&
-                acesso.contains(acessoFilter);
+                (acessoFilter == null || acesso.contains(acessoFilter));
     }
+    
 
-    private void handleComboBoxAction(ActionEvent event) {
-        filterUsers();
-    }
-
-    private void handleCancelButtonAction(ActionEvent event) {
+    private void handleCancelButton(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
         new DetailsPage().start(new Stage());
@@ -150,44 +160,6 @@ public class ListUsersPage extends Application {
 
     private ButtonComponent createButton(String text, String backgroundColor, String textColor) {
         return new ButtonComponent(text, backgroundColor, textColor);
-    }
-
-    private TextField createTextField(String promptText) {
-        TextField textField = new TextField();
-        textField.setPromptText(promptText);
-        return textField;
-    }
-
-    private ComboBox<String> createComboBox() {
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("1", "2");
-        comboBox.setPromptText("Nível de Acesso");
-        return comboBox;
-    }
-
-    private void addFocusManagement() {
-        nomeFilterInput.addEventHandler(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
-        emailFilterInput.addEventHandler(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
-        idFilterInput.addEventHandler(KeyEvent.KEY_PRESSED, this::handleTextFieldKeyPress);
-        acessoFilterComboBox.addEventHandler(KeyEvent.KEY_PRESSED, this::handleComboBoxKeyPress);
-    }
-
-    private void handleTextFieldKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.TAB) {
-            if (event.getSource() == nomeFilterInput) {
-                emailFilterInput.requestFocus();
-            } else if (event.getSource() == emailFilterInput) {
-                idFilterInput.requestFocus();
-            } else if (event.getSource() == idFilterInput) {
-                acessoFilterComboBox.requestFocus();
-            }
-        }
-    }
-
-    private void handleComboBoxKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.TAB) {
-            nomeFilterInput.requestFocus();
-        }
     }
 
     public static void main(String[] args) {
