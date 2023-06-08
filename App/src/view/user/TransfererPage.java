@@ -1,5 +1,7 @@
 package view.user;
 
+import java.sql.ResultSet;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,9 +15,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.AppSession;
+import view.admin.conn;
+import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class TransfererPage extends Application {
+    private Stage stage;
 
     private GridPane gridPane;
     private ButtonComponent transferButton;
@@ -26,6 +32,7 @@ public class TransfererPage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        
         primaryStage.setTitle("Transferência");
 
         Text title = new Text("Transferência");
@@ -45,7 +52,7 @@ public class TransfererPage extends Application {
         accountNumberTextField.setPromptText("Digite o número da conta de destino");
         accountNumberTextField.setPrefWidth(250); // Aumenta o tamanho do campo de entrada de número da conta
 
-        balanceLabel = new Label("Saldo atual: R$ 0.00");
+        balanceLabel = new Label("Saldo atual: " + AppSession.getContaUsuarioLogado().getSaldo());
 
         HBox buttonBox = new HBox(10); // Define o espaçamento entre os botões
         buttonBox.getChildren().addAll(transferButton, cancelButton);
@@ -71,32 +78,59 @@ public class TransfererPage extends Application {
     }
 
     private void handleTransfer() {
-        String amountText = amountTextField.getText();
-        double amount = Double.parseDouble(amountText);
+        String amountField = amountTextField.getText();
+        double amount = Double.parseDouble(amountField);
 
-        String accountNumber = accountNumberTextField.getText();
+        String accountNumberField = accountNumberTextField.getText();
 
-        // Lógica para realizar a transferência
-        // Você pode adicionar a lógica aqui para realizar a transferência
+        if (!amountField.isEmpty() && !accountNumberField.isEmpty()) {
+            try {
+                conn c1 = new conn();
+        
+                String query = "select * from contas where numconta = '" + accountNumberField + "'";
+                ResultSet rs = c1.st.executeQuery(query);
+        
+                if (rs.next()) {
+                    double totalAmountOriginAccount = AppSession.getContaUsuarioLogado().getSaldo() - amount;
+                    double totalAmountDestinationAccount = rs.getDouble("saldo") + amount;
+                
+                    conn c2 = new conn(); // Nova instância da classe conn para a atualização da conta de origem
+                    String originAccountQuery = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() +
+                        "', titular='" + AppSession.getContaUsuarioLogado().getTitular() +
+                        "', saldo='" + totalAmountOriginAccount +
+                        "', tipoconta='" + AppSession.getContaUsuarioLogado().getTipoConta() +
+                        "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() +
+                        "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
+        
+                    int rowsAffectedOriginAccount = c2.st.executeUpdate(originAccountQuery);
+        
+                    conn c3 = new conn(); // Nova instância da classe conn para a atualização da conta de destino
+                    String destinationAccountQuery = "UPDATE contas SET numconta='" + rs.getString("numconta") +
+                        "', titular='" + rs.getString("titular") +
+                        "', saldo='" + totalAmountDestinationAccount +
+                        "', tipoconta='" + rs.getInt("tipoconta") +
+                        "', usuarioid='" + rs.getInt("usuarioid") +
+                        "' WHERE id='" + rs.getInt("id") + "'";
+        
+                    int rowsAffectedDestinationAccount = c3.st.executeUpdate(destinationAccountQuery);
 
-        // Atualizar o saldo atual
-        double currentBalance = getCurrentBalance(); // Obtenha o saldo atual do usuário
-        double newBalance = currentBalance - amount;
-        setBalanceLabel(newBalance);
-
-        // Limpar os campos de entrada de valor e número da conta
-        amountTextField.clear();
-        accountNumberTextField.clear();
-    }
-
-    private double getCurrentBalance() {
-        // Lógica para obter o saldo atual do usuário
-        // Substitua esse método com a sua lógica real para obter o saldo atual do usuário
-        return 0.00;
-    }
-
-    private void setBalanceLabel(double balance) {
-        balanceLabel.setText("Saldo atual: R$ " + balance);
+                    rs.close();
+        
+                    if (rowsAffectedOriginAccount > 0 && rowsAffectedDestinationAccount > 0) {
+                        AlertUtil.showSuccessAlert(stage, "Transferido com sucesso");
+                        goBackToDetailsPage();
+                    } else {
+                        AlertUtil.showErrorAlert(null, "Erro ao transferir!");
+                    }
+                } else {
+                    rs.close(); // Fechar o ResultSet se estiver vazio
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            AlertUtil.showErrorAlert(null, "Os campos estão vazios!");
+        }        
     }
 
     private void goBackToDetailsPage() {
