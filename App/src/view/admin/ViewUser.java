@@ -70,6 +70,6 @@ public class ViewUser extends Application {
     private void handleCancelButton() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
-        new DetailsPage().start(new Stage());
+        new DetailsPage().start(new Stage());;
     }
 }

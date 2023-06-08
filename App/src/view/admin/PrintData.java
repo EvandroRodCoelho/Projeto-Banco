@@ -73,10 +73,7 @@ public class PrintData extends Application {
         Button printButton = new ButtonComponent("Print", "#1E488F", "white");
         Button cancelButton = new ButtonComponent("Cancelar", "#dc3545", "white");
 
-        // Configure event handlers
         printButton.setOnAction(e -> {
-            // Perform printing logic here
-            // ...
             showPrintSuccessDialog();
             primaryStage.close();
             new DetailsPage();
@@ -84,7 +81,7 @@ public class PrintData extends Application {
 
         cancelButton.setOnAction(e -> {
             primaryStage.close();
-            new ViewUser();
+            new ViewUser().start(new Stage());;
         });
 
         // Create grid pane and set its properties
