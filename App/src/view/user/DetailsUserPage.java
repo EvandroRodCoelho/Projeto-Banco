@@ -161,7 +161,19 @@ public class DetailsUserPage extends Application {
 
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == confirmButton) {
-               
+                try {
+                    Usuario usuarioLogado = AppSession.getUsuarioLogado();
+                    
+                    conn c1 = new conn();
+                    String query = "DELETE FROM usuario WHERE id = '" + usuarioLogado.getId() + "'";
+                    int rowsAffected = c1.st.executeUpdate(query);
+        
+                    if (rowsAffected > 0) {                
+                       handleLogout();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
