@@ -118,10 +118,11 @@ public class DetailsUserPage extends Application {
     }
     
     private void handleLogout() {
+        AppSession.setContaUsuarioLogado(null);
+        AppSession.setUsuarioLogado(null);
+
         Stage currentStage = (Stage) gridPane.getScene().getWindow();
         currentStage.close();
-
-        // Adicione aqui a lógica para fazer logout do usuário
     }
     
     private void confirmDeleteAccount() {
@@ -139,7 +140,19 @@ public class DetailsUserPage extends Application {
 
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == confirmButton) {
-               
+                try {
+                    Usuario usuarioLogado = AppSession.getUsuarioLogado();
+                    
+                    conn c1 = new conn();
+                    String query = "DELETE FROM usuario WHERE id = '" + usuarioLogado.getId() + "'";
+                    int rowsAffected = c1.st.executeUpdate(query);
+        
+                    if (rowsAffected > 0) {                
+                       handleLogout();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
