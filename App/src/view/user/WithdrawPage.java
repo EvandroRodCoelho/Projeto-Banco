@@ -13,9 +13,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.AppSession;
+import view.admin.conn;
+import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class WithdrawPage extends Application {
+    private Stage stage;
 
     private GridPane gridPane;
     private ButtonComponent withdrawButton;
@@ -40,7 +44,7 @@ public class WithdrawPage extends Application {
         amountTextField.setPromptText("Digite o valor a ser sacado");
         amountTextField.setPrefWidth(250); 
 
-        balanceLabel = new Label("Saldo atual: R$ 0.00");
+        balanceLabel = new Label("Saldo atual: " + AppSession.getContaUsuarioLogado().getSaldo());
 
         HBox buttonBox = new HBox(10);
         buttonBox.getChildren().addAll(withdrawButton, cancelButton);
@@ -65,29 +69,38 @@ public class WithdrawPage extends Application {
     }
 
     private void handleWithdraw() {
-        String amountText = amountTextField.getText();
-      
+        String amountField = amountTextField.getText();
 
-       
-        //TODO: Adicionar a lógica aqui para realizar o saque
+        double amountConverted = Integer.parseInt(amountTextField.getText());
+        double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
+        double totalAmount = currentAmount - amountConverted;
 
-     
-        double currentBalance = getCurrentBalance(); // Obtenha o saldo atual do usuário
-        double newBalance = currentBalance;
-        setBalanceLabel(newBalance);
+        if (!amountField.isEmpty()) {
+            try {
+                String query = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() + 
+                    "', titular='" + AppSession.getContaUsuarioLogado().getTitular() + 
+                    "', saldo='" + totalAmount + 
+                    "', tipoconta='" + AppSession.getContaUsuarioLogado().getTipoConta() + 
+                    "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() + 
+                    "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
+                
+                conn c1 = new conn();
+                int rowsAffected = c1.st.executeUpdate(query);
 
-       
+                if (rowsAffected > 0) {
+                    AlertUtil.showSuccessAlert(stage, "Sacado com sucesso");
+                    goBackToDetailsPage();
+                } else {
+                    AlertUtil.showErrorAlert(null, "Erro ao sacar!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            AlertUtil.showErrorAlert(null, "O campo está vazio!");
+        }
+
         amountTextField.clear();
-    }
-
-    private double getCurrentBalance() {
-      
-        // TODO: Substitua esse método com a sua lógica real para obter o saldo atual do usuário
-        return 0.00;
-    }
-
-    private void setBalanceLabel(double balance) {
-        balanceLabel.setText("Saldo atual: R$ " + balance);
     }
 
     private void goBackToDetailsPage() {
