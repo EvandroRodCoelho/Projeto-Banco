@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.AppSession;
 import model.Conta;
 import model.Usuario;
+import view.admin.MainPage;
 import view.admin.conn;
 import view.globals.LoginPage;
 import view.utils.ButtonComponent;
@@ -127,13 +128,22 @@ public class DetailsUserPage extends Application {
     }
     
     private void handleLogout() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-        Stage loginPageStage = new Stage();
-        LoginPage loginPage = new LoginPage();
-        loginPage.start(loginPageStage);
-
-        // Adicione aqui a lógica para fazer logout do usuário
+       
+            Stage currentStage = (Stage) gridPane.getScene().getWindow();
+            currentStage.close();
+        
+            int accessLevel = AppSession.getUsuarioLogado().getAcesso();
+            
+            if (accessLevel == 1) {
+                Stage loginPageStage = new Stage();
+                LoginPage loginPage = new LoginPage();
+                loginPage.start(loginPageStage);
+            } else if (accessLevel == 2) {
+                Stage adminPageStage = new Stage();
+                MainPage adminPage = new MainPage();
+                adminPage.start(adminPageStage);
+            }
+        
     }
     
     private void confirmDeleteAccount() {

@@ -18,7 +18,7 @@ import model.AppSession;
 import model.Usuario;
 import view.utils.ButtonComponent;
 import view.user.RegisterPage;
-import view.admin.DetailsPage;
+import view.admin.MainPage;
 import view.admin.conn;
 import view.user.DetailsUserPage;
 import view.utils.AlertUtil;
@@ -104,19 +104,18 @@ public class LoginPage extends Application {
             ResultSet result = c1.st.executeQuery(query);
             if (result.next()) {
                 int acesso = result.getInt("acesso");
+                int id = result.getInt("id");                    
+                String userName = result.getString("nome");
+                String userEmail = result.getString("email");
+                String userAccountType = result.getString("senha");
+                int accountNum = result.getInt("acesso");
+
+                Usuario user = new Usuario(id, userName, userEmail, userAccountType, accountNum);
+                AppSession.setUsuarioLogado(user); 
                 if (acesso == 2) {                    
-                    new DetailsPage().start(new Stage());
+                    new MainPage().start(new Stage());
                     stage.close();
                 } else {
-                    int id = result.getInt("id");                    
-                    String userName = result.getString("nome");
-                    String userEmail = result.getString("email");
-                    String userAccountType = result.getString("senha");
-                    int accountNum = result.getInt("acesso");
-
-                    Usuario user = new Usuario(id, userName, userEmail, userAccountType, accountNum);
-                    AppSession.setUsuarioLogado(user); 
-
                     new DetailsUserPage().start(new Stage());
                     stage.close();
                 }
