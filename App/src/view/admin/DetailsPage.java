@@ -28,7 +28,7 @@ public class DetailsPage extends Application {
         addButton = createButton("Adicionar usuário", "#1E488F", "white");
         addButton.setOnAction(e -> openAddClientPage());
 
-        viewButton = createButton("Visualizar usuário", "#1E488F", "white");
+        viewButton = createButton("Visualizar usuários", "#1E488F", "white");
         viewButton.setOnAction(e -> openViewEmployeePage());
 
         removeButton = createButton("Remover usuário", "#1E488F", "white");
@@ -100,7 +100,7 @@ public class DetailsPage extends Application {
         currentStage.close();
 
         Stage viewEmployeeStage = new Stage();
-        ViewUser viewUserPage = new ViewUser();
+        ListUsersPage viewUserPage = new ListUsersPage();
         viewUserPage.start(viewEmployeeStage);
     }
 
