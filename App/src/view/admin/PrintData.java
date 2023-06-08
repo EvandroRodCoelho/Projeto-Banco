@@ -73,10 +73,8 @@ public class PrintData extends Application {
         Button printButton = new ButtonComponent("Print", "#1E488F", "white");
         Button cancelButton = new ButtonComponent("Cancelar", "#dc3545", "white");
 
-        // Configure event handlers
+        
         printButton.setOnAction(e -> {
-            // Perform printing logic here
-            // ...
             showPrintSuccessDialog();
             primaryStage.close();
             new DetailsPage();
@@ -87,14 +85,12 @@ public class PrintData extends Application {
             new ViewUser();
         });
 
-        // Create grid pane and set its properties
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
 
-        // Add UI controls to grid pane
         gridPane.add(idLabel, 0, 0);
         gridPane.add(idValue, 1, 0);
         gridPane.add(nomeLabel, 0, 1);
@@ -108,10 +104,9 @@ public class PrintData extends Application {
         gridPane.add(printButton, 0, 8);
         gridPane.add(cancelButton, 1, 8);
 
-        // Set CSS styles
+
         gridPane.setStyle("-fx-background-color: white;");
 
-        // Create scene and set it in the stage
         Scene scene = new Scene(gridPane, 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();

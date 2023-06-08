@@ -91,8 +91,8 @@ public class DetailsPage extends Application {
         currentStage.close();
 
         Stage removeUserStage = new Stage();
-        RemoveUser removeEmployeePage = new RemoveUser();
-        removeEmployeePage.start(removeUserStage);
+        RemoveUser removeUserPage = new RemoveUser();
+        removeUserPage.start(removeUserStage);
     }
 
     private void openViewEmployeePage() {
@@ -100,14 +100,17 @@ public class DetailsPage extends Application {
         currentStage.close();
 
         Stage viewEmployeeStage = new Stage();
-        ViewUser viewEmployeePage = new ViewUser();
-        viewEmployeePage.start(viewEmployeeStage);
+        ViewUser viewUserPage = new ViewUser();
+        viewUserPage.start(viewEmployeeStage);
     }
 
     private void openUpdatePage() {
-        Stage viewEmployeeStage = new Stage();
+        Stage currentStage = (Stage) gridPane.getScene().getWindow();
+        currentStage.close();
+        
+        Stage viewUserStage = new Stage();
         UpdatePage updatePage = new UpdatePage();
-        updatePage.start(viewEmployeeStage);
+        updatePage.start(viewUserStage);
     }
     
     private void logout() {

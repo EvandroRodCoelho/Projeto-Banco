@@ -35,7 +35,6 @@ public class UpdatePage extends Application {
         primaryStage.setTitle("Update Cliente");
         primaryStage.setResizable(false);
 
-        // Create UI controls
         Label idLabel = new Label("Usuário ID:");
         idTextField = new TextField();
         searchButton = new ButtonComponent("Procurar", "#007bff", "white");
@@ -52,19 +51,16 @@ public class UpdatePage extends Application {
         updateButton = new ButtonComponent("Atualizar", "#1E488F", "white");
         cancelButton = new ButtonComponent("Cancelar", "#dc3545", "white");
 
-        // Configure event handlers
         searchButton.setOnAction(this::handleSearchButton);
         updateButton.setOnAction(this::handleUpdateButton);
         cancelButton.setOnAction(this::handleCancelButton);
 
-        // Create grid pane and set its properties
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
 
-        // Add UI controls to grid pane
         gridPane.add(idLabel, 0, 0);
         gridPane.add(idTextField, 1, 0);
         gridPane.add(searchButton, 2, 0);
@@ -89,7 +85,6 @@ public class UpdatePage extends Application {
         String employeeId = idTextField.getText();
         if (!employeeId.isEmpty()) {
             try {
-                // Execute SQL query to retrieve employee information
                 String query = "SELECT * FROM usuario WHERE id = '" + employeeId + "'";
                 conn c1 = new conn();
                 ResultSet result = c1.st.executeQuery(query);
@@ -99,7 +94,6 @@ public class UpdatePage extends Application {
                     String senha = result.getString("senha");
                     String acesso = result.getString("acesso");
 
-                    // Update UI text fields with retrieved information
                     nomeTextField.setText(nome);
                     emailTextField.setText(email);
                     senhaTextField.setText(senha);
@@ -124,27 +118,23 @@ public class UpdatePage extends Application {
 
         if (!id.isEmpty()) {
             try {
-                // Execute SQL query to update the employee details
                 String query = "UPDATE usuario SET nome='" + nome + "', email='" + email + "', senha='" + senha + "', acesso='" + acesso + "' WHERE id='" + id + "'";
                 conn c1 = new conn();
                 int rowsAffected = c1.st.executeUpdate(query);
 
                 if (rowsAffected > 0) {
-                    // Employee details updated successfully
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Atualizar dados do Usuário");
                     alert.setHeaderText(null);
                     alert.setContentText("Atualizado com sucesso!");
                     alert.showAndWait();
 
-                    // Clear text fields
                     idTextField.setText("");
                     nomeTextField.setText("");
                     emailTextField.setText("");
                     senhaTextField.setText("");
                     acessoTextField.setText("");
                 } else {
-                    // Employee not found, show error message
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Atualizar dados do Usuário");
                     alert.setHeaderText(null);
