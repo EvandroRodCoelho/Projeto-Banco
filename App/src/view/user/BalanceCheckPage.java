@@ -29,7 +29,7 @@ public class BalanceCheckPage extends Application {
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
 
         cancelButton = createButton("Cancelar", "#D32F2F", "white");
-        cancelButton.setOnAction(e -> goBackToDetailsPage());
+        cancelButton.setOnAction(e -> handleCancelButton());
 
         balanceLabel = new Label("Seu saldo atual é: R$ " + AppSession.getContaUsuarioLogado().getSaldo());
 
@@ -54,7 +54,7 @@ public class BalanceCheckPage extends Application {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
 
-    private void goBackToDetailsPage() {
+    private void handleCancelButton() {
         Stage currentStage = (Stage) gridPane.getScene().getWindow();
         currentStage.close();
 

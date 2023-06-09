@@ -11,7 +11,7 @@ public class ButtonComponent extends Button {
     public ButtonComponent(String text, String backgroundColor, String textColor) {
         setText(text);
         setStyle("-fx-background-color: " + backgroundColor + "; -fx-text-fill: " + textColor + ";");
-        setPrefWidth(120);
+        setPrefWidth(195);
 
         setOnMouseEntered(e -> {
             if (!isFocused()) {

@@ -46,15 +46,15 @@ public class TransfererPage extends Application {
 
         amountTextField = new TextField();
         amountTextField.setPromptText("Digite o valor a ser transferido");
-        amountTextField.setPrefWidth(250); // Aumenta o tamanho do campo de entrada de valor
+        amountTextField.setPrefWidth(250);
 
         accountNumberTextField = new TextField();
         accountNumberTextField.setPromptText("Digite o número da conta de destino");
-        accountNumberTextField.setPrefWidth(250); // Aumenta o tamanho do campo de entrada de número da conta
+        accountNumberTextField.setPrefWidth(250);
 
         balanceLabel = new Label("Saldo atual: " + AppSession.getContaUsuarioLogado().getSaldo());
 
-        HBox buttonBox = new HBox(10); // Define o espaçamento entre os botões
+        HBox buttonBox = new HBox(10); 
         buttonBox.getChildren().addAll(transferButton, cancelButton);
 
         gridPane = new GridPane();
@@ -94,7 +94,7 @@ public class TransfererPage extends Application {
                     double totalAmountOriginAccount = AppSession.getContaUsuarioLogado().getSaldo() - amount;
                     double totalAmountDestinationAccount = rs.getDouble("saldo") + amount;
                 
-                    conn c2 = new conn(); // Nova instância da classe conn para a atualização da conta de origem
+                    conn c2 = new conn();
                     String originAccountQuery = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() +
                         "', titular='" + AppSession.getContaUsuarioLogado().getTitular() +
                         "', saldo='" + totalAmountOriginAccount +
@@ -104,7 +104,7 @@ public class TransfererPage extends Application {
         
                     int rowsAffectedOriginAccount = c2.st.executeUpdate(originAccountQuery);
         
-                    conn c3 = new conn(); // Nova instância da classe conn para a atualização da conta de destino
+                    conn c3 = new conn(); 
                     String destinationAccountQuery = "UPDATE contas SET numconta='" + rs.getString("numconta") +
                         "', titular='" + rs.getString("titular") +
                         "', saldo='" + totalAmountDestinationAccount +
@@ -123,7 +123,7 @@ public class TransfererPage extends Application {
                         AlertUtil.showErrorAlert(null, "Erro ao transferir!");
                     }
                 } else {
-                    rs.close(); // Fechar o ResultSet se estiver vazio
+                    rs.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

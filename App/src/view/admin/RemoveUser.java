@@ -34,7 +34,7 @@ public class RemoveUser extends Application {
         primaryStage.setTitle("Remover usuário");
         primaryStage.setResizable(false);
 
-        // Create UI controls
+
         idLabel = new Label("Usuário ID:");
         idTextField = new TextField();
         searchButton = new ButtonComponent("Procurar", "#007bff", "white");
@@ -47,19 +47,15 @@ public class RemoveUser extends Application {
         removeButton = new ButtonComponent("Remover", "#dc3545", "white");
         cancelButton = new ButtonComponent("Cancelar", "#6c757d", "white");
 
-        // Configure event handlers
         searchButton.setOnAction(this::handleSearchButton);
         removeButton.setOnAction(this::handleRemoveButton);
         cancelButton.setOnAction(this::handleCancelButton);
 
-        // Create grid pane and set its properties
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
-
-        // Add UI controls to grid pane
         gridPane.add(idLabel, 0, 0);
         gridPane.add(idTextField, 1, 0);
         gridPane.add(searchButton, 2, 0);
@@ -70,7 +66,7 @@ public class RemoveUser extends Application {
         gridPane.add(removeButton, 0, 8);
         gridPane.add(cancelButton, 1, 8);
 
-        // Create scene and set it in the stage
+    
         Scene scene = new Scene(gridPane, 600, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -80,7 +76,7 @@ public class RemoveUser extends Application {
         String userId = idTextField.getText();
         if (!userId.isEmpty()) {
             try {
-                // Execute SQL query to retrieve user information
+
                 String query = "SELECT * FROM usuario WHERE id = '" + userId + "'";
                 conn c1 = new conn();
                 ResultSet result = c1.st.executeQuery(query);
@@ -117,21 +113,18 @@ public class RemoveUser extends Application {
                 int rowsAffected = c1.st.executeUpdate(query);
                 
                 if (rowsAffected > 0) {
-                    // User removed successfully
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Remover Usuário");
                     alert.setHeaderText(null);
                     alert.setContentText("Usuário removido com sucesso!");
                     alert.showAndWait();
-                    
-                    // Clear labels and text field
+
                     nomeLabel.setText("Nome:");
                     emailLabel.setText("Email:");
                     senhaLabel.setText("Senha:");
                     acessoLabel.setText("Acesso:");
                     idTextField.setText("");
                 } else {
-                    // User not found, show error message
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Remover Usuário");
                     alert.setHeaderText(null);

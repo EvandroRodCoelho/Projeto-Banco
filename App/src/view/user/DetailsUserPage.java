@@ -16,13 +16,16 @@ import javafx.stage.Stage;
 import model.AppSession;
 import model.Conta;
 import model.Usuario;
+import view.admin.MainPage;
 import view.admin.conn;
+import view.globals.LoginPage;
 import view.utils.ButtonComponent;
 
 public class DetailsUserPage extends Application {
 
     private GridPane gridPane;
     private ButtonComponent withdrawButton, depositButton, transferButton, balanceCheckButton, logoutButton, deleteAccountButton;
+    private double addButtonWidthRatio = 0.3;
 
     public DetailsUserPage() {
         this.getContaUsuario();
@@ -67,7 +70,14 @@ public class DetailsUserPage extends Application {
         primaryStage.show();
 
         primaryStage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            double newButtonWidth = newWidth.doubleValue() * 0.3;
+            double newButtonWidth = newWidth.doubleValue() * addButtonWidthRatio;
+            double maxButtonWidth = 200; 
+            
+            if (newButtonWidth > maxButtonWidth) {
+                newButtonWidth = maxButtonWidth;
+            }
+    
+        
             withdrawButton.setPrefWidth(newButtonWidth);
             depositButton.setPrefWidth(newButtonWidth);
             transferButton.setPrefWidth(newButtonWidth);
@@ -118,11 +128,22 @@ public class DetailsUserPage extends Application {
     }
     
     private void handleLogout() {
-        AppSession.setContaUsuarioLogado(null);
-        AppSession.setUsuarioLogado(null);
-
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
+       
+            Stage currentStage = (Stage) gridPane.getScene().getWindow();
+            currentStage.close();
+        
+            int accessLevel = AppSession.getUsuarioLogado().getAcesso();
+            
+            if (accessLevel == 1) {
+                Stage loginPageStage = new Stage();
+                LoginPage loginPage = new LoginPage();
+                loginPage.start(loginPageStage);
+            } else if (accessLevel == 2) {
+                Stage adminPageStage = new Stage();
+                MainPage adminPage = new MainPage();
+                adminPage.start(adminPageStage);
+            }
+        
     }
     
     private void confirmDeleteAccount() {
@@ -168,13 +189,13 @@ public class DetailsUserPage extends Application {
 
             if (rs.next()) {                
                 int id = rs.getInt("id");  
-                int usuarioid = rs.getInt("usuarioId");   
-                int tipoConta = rs.getInt("tipoConta");                 
-                double saldo = rs.getDouble("saldo");
-                String titular = rs.getString("titular");
-                String numConta = rs.getString("numConta");
+                int userId = rs.getInt("usuarioId");   
+                int typeAccount = rs.getInt("tipoConta");                 
+                double withdraw = rs.getDouble("saldo");
+                String accountHolder = rs.getString("titular");
+                String accountNumber = rs.getString("numConta");
     
-                Conta conta1 = new Conta(numConta, titular, saldo, tipoConta, usuarioid, id);
+                Conta conta1 = new Conta(accountNumber, accountHolder, withdraw, typeAccount, userId, id);
                 AppSession.setContaUsuarioLogado(conta1);
             }
         } catch (SQLException e) {
