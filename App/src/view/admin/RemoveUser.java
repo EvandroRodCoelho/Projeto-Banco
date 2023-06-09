@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
@@ -78,7 +79,7 @@ public class RemoveUser extends Application {
             try {
 
                 String query = "SELECT * FROM usuario WHERE id = '" + userId + "'";
-                conn c1 = new conn();
+                Conn c1 = new Conn();
                 ResultSet result = c1.st.executeQuery(query);
                 if (result.next()) {
                     nome = result.getString("nome");
@@ -109,9 +110,8 @@ public class RemoveUser extends Application {
             try {
                 // Execute SQL query to remove the user
                 String query = "DELETE FROM usuario WHERE id = '" + userId + "'";
-                conn c1 = new conn();
+                Conn c1 = new Conn();
                 int rowsAffected = c1.st.executeUpdate(query);
-                
                 if (rowsAffected > 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Remover Usuário");

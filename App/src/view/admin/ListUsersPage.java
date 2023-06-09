@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Usuario;
+import model.database.Conn;
 import view.utils.ButtonComponent;
 
 public class ListUsersPage extends Application {
@@ -94,7 +95,7 @@ public class ListUsersPage extends Application {
         ObservableList<Usuario> users = FXCollections.observableArrayList();
 
         try {
-            conn c1 = new conn();
+            Conn c1 = new Conn();
             String query = "SELECT * FROM usuario";
             ResultSet rs = c1.st.executeQuery(query);
 

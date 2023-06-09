@@ -16,7 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.AppSession;
-import view.admin.conn;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
@@ -85,7 +85,7 @@ public class TransfererPage extends Application {
 
         if (!amountField.isEmpty() && !accountNumberField.isEmpty()) {
             try {
-                conn c1 = new conn();
+                Conn c1 = new Conn();
         
                 String query = "select * from contas where numconta = '" + accountNumberField + "'";
                 ResultSet rs = c1.st.executeQuery(query);
@@ -94,7 +94,7 @@ public class TransfererPage extends Application {
                     double totalAmountOriginAccount = AppSession.getContaUsuarioLogado().getSaldo() - amount;
                     double totalAmountDestinationAccount = rs.getDouble("saldo") + amount;
                 
-                    conn c2 = new conn();
+                    Conn c2 = new Conn();
                     String originAccountQuery = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() +
                         "', titular='" + AppSession.getContaUsuarioLogado().getTitular() +
                         "', saldo='" + totalAmountOriginAccount +
@@ -104,7 +104,7 @@ public class TransfererPage extends Application {
         
                     int rowsAffectedOriginAccount = c2.st.executeUpdate(originAccountQuery);
         
-                    conn c3 = new conn(); 
+                    Conn c3 = new Conn(); 
                     String destinationAccountQuery = "UPDATE contas SET numconta='" + rs.getString("numconta") +
                         "', titular='" + rs.getString("titular") +
                         "', saldo='" + totalAmountDestinationAccount +

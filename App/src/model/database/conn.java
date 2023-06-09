@@ -1,14 +1,14 @@
-package view.admin;
+package model.database;
 
 import java.sql.*;
 
-public class conn {
+public class Conn {
 
 
 	public Connection c;  
 	public Statement st; 
 	
-	public conn() {
+	public void Conn() {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); 

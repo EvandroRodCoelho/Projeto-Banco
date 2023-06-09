@@ -13,8 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.ButtonComponent;
-import view.admin.conn;
 import view.globals.LoginPage;
 import view.utils.AlertUtil;
 
@@ -95,11 +95,11 @@ public class RegisterPage extends Application {
         String senha = senhaTextField.getText();
 
         if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
-            conn c1 = null;
+            Conn c1 = null;
             Savepoint savepoint = null;
 
             try {
-                c1 = new conn();
+                c1 = new Conn();
 
                 c1.c.setAutoCommit(false);
 

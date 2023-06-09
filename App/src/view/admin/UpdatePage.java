@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
@@ -86,7 +87,7 @@ public class UpdatePage extends Application {
         if (!employeeId.isEmpty()) {
             try {
                 String query = "SELECT * FROM usuario WHERE id = '" + employeeId + "'";
-                conn c1 = new conn();
+                Conn c1 = new Conn();
                 ResultSet result = c1.st.executeQuery(query);
                 if (result.next()) {
                     String nome = result.getString("nome");
@@ -119,7 +120,7 @@ public class UpdatePage extends Application {
         if (!id.isEmpty()) {
             try {
                 String query = "UPDATE usuario SET nome='" + nome + "', email='" + email + "', senha='" + senha + "', acesso='" + acesso + "' WHERE id='" + id + "'";
-                conn c1 = new conn();
+                Conn c1 = new Conn();
                 int rowsAffected = c1.st.executeUpdate(query);
 
                 if (rowsAffected > 0) {

@@ -16,10 +16,10 @@ import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
 import model.AppSession;
 import model.Usuario;
+import model.database.Conn;
 import view.utils.ButtonComponent;
 import view.user.RegisterPage;
 import view.admin.MainPage;
-import view.admin.conn;
 import view.user.DetailsUserPage;
 import view.utils.AlertUtil;
 
@@ -96,7 +96,7 @@ public class LoginPage extends Application {
             return;
         }
         try {
-            conn c1 = new conn();
+            Conn c1 = new Conn();
             emailField.setDisable(true);
             senhaField.setDisable(true);
             cancelButton.setDisable(true);

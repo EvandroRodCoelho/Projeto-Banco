@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.ButtonComponent;
 import view.utils.AlertUtil;
 
@@ -110,7 +111,7 @@ public class AddUser extends Application {
         String acesso = acessoTextField.getText();
 
         try {
-            conn c1 = new conn();
+            Conn c1 = new Conn();
             String query = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
                 + nome + "', '" + email + "', '" + senha + "', '" + Integer.parseInt(acesso) + "')";
             int rowsAffected = c1.st.executeUpdate(query);
