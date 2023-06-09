@@ -166,7 +166,7 @@ public class DetailsUserPage extends Application {
                     
                     Conn c1 = new Conn();
                     String query = "DELETE FROM usuario WHERE id = '" + usuarioLogado.getId() + "'";
-                    int rowsAffected = c1.st.executeUpdate(query);
+                    int rowsAffected = c1.getStatement().executeUpdate(query);
         
                     if (rowsAffected > 0) {                
                        handleLogout();
@@ -185,7 +185,7 @@ public class DetailsUserPage extends Application {
             Conn c1 = new Conn();
             String query = "select * from contas where usuarioid = '" + usuarioLogado.getId() + "'";
 
-            ResultSet rs = c1.st.executeQuery(query);
+            ResultSet rs = c1.getStatement().executeQuery(query);
 
             if (rs.next()) {                
                 int id = rs.getInt("id");  

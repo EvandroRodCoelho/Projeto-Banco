@@ -95,9 +95,9 @@ public class ListUsersPage extends Application {
         ObservableList<Usuario> users = FXCollections.observableArrayList();
 
         try {
-            Conn c1 = new Conn();
+            Conn conn = new Conn();
             String query = "SELECT * FROM usuario";
-            ResultSet rs = c1.st.executeQuery(query);
+            ResultSet rs = conn.getStatement().executeQuery(query);
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -110,7 +110,7 @@ public class ListUsersPage extends Application {
             }
 
             rs.close();
-            c1.st.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,22 +136,21 @@ public class ListUsersPage extends Application {
         String emailFilter = emailFilterInput.getText().toLowerCase();
         String idFilter = idFilterInput.getText().toLowerCase();
         String acessoFilter = accessFilterComboBox.getValue();
-    
+
         String nome = user.getNome().toLowerCase();
         String email = user.getEmail().toLowerCase();
         String id = String.valueOf(user.getId()).toLowerCase();
         String acesso = String.valueOf(user.getAcesso()).toLowerCase();
-    
+
         if (acessoFilter != null) {
             acessoFilter = acessoFilter.toLowerCase();
         }
-    
+
         return nome.contains(nomeFilter) &&
                 email.contains(emailFilter) &&
                 id.contains(idFilter) &&
                 (acessoFilter == null || acesso.contains(acessoFilter));
     }
-    
 
     private void handleCancelButton(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();

@@ -85,7 +85,7 @@ public class DepositPage extends Application {
                     "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
                 
                 Conn c1 = new Conn();
-                int rowsAffected = c1.st.executeUpdate(query);
+                int rowsAffected = c1.getStatement().executeUpdate(query);
 
                 if (rowsAffected > 0) {
                     AlertUtil.showSuccessAlert(stage, "Depositado com sucesso");

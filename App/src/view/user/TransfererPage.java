@@ -88,7 +88,7 @@ public class TransfererPage extends Application {
                 Conn c1 = new Conn();
         
                 String query = "select * from contas where numconta = '" + accountNumberField + "'";
-                ResultSet rs = c1.st.executeQuery(query);
+                ResultSet rs = c1.getStatement().executeQuery(query);
         
                 if (rs.next()) {
                     double totalAmountOriginAccount = AppSession.getContaUsuarioLogado().getSaldo() - amount;
@@ -102,7 +102,7 @@ public class TransfererPage extends Application {
                         "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() +
                         "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
         
-                    int rowsAffectedOriginAccount = c2.st.executeUpdate(originAccountQuery);
+                    int rowsAffectedOriginAccount = c2.getStatement().executeUpdate(originAccountQuery);
         
                     Conn c3 = new Conn(); 
                     String destinationAccountQuery = "UPDATE contas SET numconta='" + rs.getString("numconta") +
@@ -112,7 +112,7 @@ public class TransfererPage extends Application {
                         "', usuarioid='" + rs.getInt("usuarioid") +
                         "' WHERE id='" + rs.getInt("id") + "'";
         
-                    int rowsAffectedDestinationAccount = c3.st.executeUpdate(destinationAccountQuery);
+                    int rowsAffectedDestinationAccount = c3.getStatement().executeUpdate(destinationAccountQuery);
 
                     rs.close();
         
