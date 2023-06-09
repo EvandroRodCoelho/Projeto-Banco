@@ -111,14 +111,15 @@ public class AddUser extends Application {
         String acesso = acessoTextField.getText();
 
         try {
-            Conn c1 = new Conn();
+            Conn conn = new Conn();
             String query = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
-                + nome + "', '" + email + "', '" + senha + "', '" + Integer.parseInt(acesso) + "')";
-            int rowsAffected = c1.st.executeUpdate(query);
+                    + nome + "', '" + email + "', '" + senha + "', '" + Integer.parseInt(acesso) + "')";
+            int rowsAffected = conn.getStatement().executeUpdate(query);
 
             if (rowsAffected > 0) {
                 AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
             }
+            conn.close();
         } catch (SQLException e) {
             AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
         }

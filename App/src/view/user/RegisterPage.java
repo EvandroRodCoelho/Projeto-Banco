@@ -101,16 +101,16 @@ public class RegisterPage extends Application {
             try {
                 c1 = new Conn();
 
-                c1.c.setAutoCommit(false);
+                c1.getConnection().setAutoCommit(false);
 
                 String queryCreateUser = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
                     + nome + "', '" + email + "', '" + senha + "', '" + 1 + "')";
 
-                c1.st.executeUpdate(queryCreateUser);
+                c1.getStatement().executeUpdate(queryCreateUser);
 
                 String querySearchUser = "SELECT * FROM usuario WHERE email = '" + email + "'";
 
-                ResultSet rs = c1.st.executeQuery(querySearchUser);
+                ResultSet rs = c1.getStatement().executeQuery(querySearchUser);
 
                 if(rs.next()){
                     int numconta = Integer.parseInt(generateNumContaSequence(6));
@@ -122,11 +122,11 @@ public class RegisterPage extends Application {
                         100 + "', '" + 
                         rs.getString("id") + "')";
 
-                     savepoint = c1.c.setSavepoint();
+                     savepoint = c1.getConnection().setSavepoint();
                     
-                    int rowsAffectedBankAcc = c1.st.executeUpdate(queryCreateBankAcc);
+                    int rowsAffectedBankAcc = c1.getStatement().executeUpdate(queryCreateBankAcc);
 
-                    c1.c.commit();
+                    c1.getConnection().commit();
                     rs.close();
 
                     if (rowsAffectedBankAcc > 0) {
@@ -145,22 +145,22 @@ public class RegisterPage extends Application {
 
                 try {
                     System.out.println("rollback...");
-                    c1.c.rollback(savepoint);
+                    c1.getConnection().rollback(savepoint);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             }
             finally{
                 try{
-                    if(c1.st != null)
-                    c1.st.close();
-                } catch(SQLException se2){
+                    if(c1.getStatement() != null)
+                    c1.close();
+                } catch(Exception se2){
                     se2.printStackTrace();
                 } 
                 try{
-                    if(c1.c != null)
-                        c1.c.close();
-                } catch(SQLException se){
+                    if(c1.getConnection() != null)
+                        c1.close();
+                } catch(Exception se){
                     se.printStackTrace();
                 }
             } 

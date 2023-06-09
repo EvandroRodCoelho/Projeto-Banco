@@ -25,7 +25,7 @@ public class RemoveUser extends Application {
     private String acesso;
     private Label idLabel, nomeLabel, emailLabel, senhaLabel, acessoLabel;
     private Button searchButton, removeButton, cancelButton;
-    
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -34,7 +34,6 @@ public class RemoveUser extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Remover usuário");
         primaryStage.setResizable(false);
-
 
         idLabel = new Label("Usuário ID:");
         idTextField = new TextField();
@@ -67,20 +66,18 @@ public class RemoveUser extends Application {
         gridPane.add(removeButton, 0, 8);
         gridPane.add(cancelButton, 1, 8);
 
-    
         Scene scene = new Scene(gridPane, 600, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
+
     private void handleSearchButton(ActionEvent event) {
         String userId = idTextField.getText();
         if (!userId.isEmpty()) {
             try {
-
+                Conn conn = new Conn();
                 String query = "SELECT * FROM usuario WHERE id = '" + userId + "'";
-                Conn c1 = new Conn();
-                ResultSet result = c1.st.executeQuery(query);
+                ResultSet result = conn.getStatement().executeQuery(query);
                 if (result.next()) {
                     nome = result.getString("nome");
                     email = result.getString("email");
@@ -92,10 +89,10 @@ public class RemoveUser extends Application {
                     emailLabel.setText("Email: " + email);
                     senhaLabel.setText("Senha: " + senha);
                     acessoLabel.setText("Acesso: " + acesso);
-
                 } else {
                     AlertUtil.showErrorAlert(null, "Usuário não encontrado");
                 }
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -108,10 +105,9 @@ public class RemoveUser extends Application {
         String userId = idTextField.getText();
         if (!userId.isEmpty()) {
             try {
-                // Execute SQL query to remove the user
+                Conn conn = new Conn();
                 String query = "DELETE FROM usuario WHERE id = '" + userId + "'";
-                Conn c1 = new Conn();
-                int rowsAffected = c1.st.executeUpdate(query);
+                int rowsAffected = conn.getStatement().executeUpdate(query);
                 if (rowsAffected > 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Remover Usuário");
@@ -131,15 +127,16 @@ public class RemoveUser extends Application {
                     alert.setContentText("Não foi possível encontrar o usuário.");
                     alert.showAndWait();
                 }
+                conn.close();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }
     }
-    
+
     private void handleCancelButton(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
-        new DetailsPage().start(new Stage());;
+        new DetailsPage().start(new Stage());
     }
 }

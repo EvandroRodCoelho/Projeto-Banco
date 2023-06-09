@@ -33,7 +33,7 @@ public class UpdatePage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Update Cliente");
+        primaryStage.setTitle("Atualizar Usuário");
         primaryStage.setResizable(false);
 
         Label idLabel = new Label("Usuário ID:");
@@ -83,12 +83,12 @@ public class UpdatePage extends Application {
     }
 
     private void handleSearchButton(ActionEvent event) {
-        String employeeId = idTextField.getText();
-        if (!employeeId.isEmpty()) {
+        String userId = idTextField.getText();
+        if (!userId.isEmpty()) {
             try {
-                String query = "SELECT * FROM usuario WHERE id = '" + employeeId + "'";
-                Conn c1 = new Conn();
-                ResultSet result = c1.st.executeQuery(query);
+                Conn conn = new Conn();
+                String query = "SELECT * FROM usuario WHERE id = '" + userId + "'";
+                ResultSet result = conn.getStatement().executeQuery(query);
                 if (result.next()) {
                     String nome = result.getString("nome");
                     String email = result.getString("email");
@@ -100,13 +100,14 @@ public class UpdatePage extends Application {
                     senhaTextField.setText(senha);
                     acessoTextField.setText(acesso);
                 } else {
-                    AlertUtil.showErrorAlert(null, "Cliente não achado");
+                    AlertUtil.showErrorAlert(null, "Usuário não encontrado");
                 }
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            AlertUtil.showErrorAlert(null, "Digite um id");
+            AlertUtil.showErrorAlert(null, "Digite um ID de usuário");
         }
     }
 
@@ -119,9 +120,9 @@ public class UpdatePage extends Application {
 
         if (!id.isEmpty()) {
             try {
+                Conn conn = new Conn();
                 String query = "UPDATE usuario SET nome='" + nome + "', email='" + email + "', senha='" + senha + "', acesso='" + acesso + "' WHERE id='" + id + "'";
-                Conn c1 = new Conn();
-                int rowsAffected = c1.st.executeUpdate(query);
+                int rowsAffected = conn.getStatement().executeUpdate(query);
 
                 if (rowsAffected > 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -142,6 +143,7 @@ public class UpdatePage extends Application {
                     alert.setContentText("Usuário não encontrado!");
                     alert.showAndWait();
                 }
+                conn.close();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
