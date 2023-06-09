@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.utils.ButtonComponent;
@@ -19,7 +18,10 @@ import view.admin.conn;
 import view.globals.LoginPage;
 import view.utils.AlertUtil;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.util.Random;
 
 public class RegisterPage extends Application {
     private Stage stage;
@@ -92,21 +94,83 @@ public class RegisterPage extends Application {
         String email = emailTextField.getText();
         String senha = senhaTextField.getText();
 
-        try {
-            conn c1 = new conn();
-            String query = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
-                + nome + "', '" + email + "', '" + senha + "', '" + 1 + "')";
-            int rowsAffected = c1.st.executeUpdate(query);
+        if (!nome.isEmpty() && !email.isEmpty() && !senha.isEmpty()) {
+            conn c1 = null;
+            Savepoint savepoint = null;
 
-            if (rowsAffected > 0) {
-                AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
+            try {
+                c1 = new conn();
+
+                c1.c.setAutoCommit(false);
+
+                String queryCreateUser = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
+                    + nome + "', '" + email + "', '" + senha + "', '" + 1 + "')";
+
+                c1.st.executeUpdate(queryCreateUser);
+
+                String querySearchUser = "SELECT * FROM usuario WHERE email = '" + email + "'";
+
+                ResultSet rs = c1.st.executeQuery(querySearchUser);
+
+                if(rs.next()){
+                    int numconta = Integer.parseInt(generateNumContaSequence(6));
+                    
+                    String queryCreateBankAcc = "INSERT INTO contas (numconta, titular, tipoconta, saldo, usuarioid) VALUES ('" +
+                        numconta + "', '" + 
+                        rs.getString("nome") + "', '" + 
+                        1 + "', '" + 
+                        100 + "', '" + 
+                        rs.getString("id") + "')";
+
+                     savepoint = c1.c.setSavepoint();
+                    
+                    int rowsAffectedBankAcc = c1.st.executeUpdate(queryCreateBankAcc);
+
+                    c1.c.commit();
+                    rs.close();
+
+                    if (rowsAffectedBankAcc > 0) {
+                        AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
+                        handleLoginLink(null);
+                    }
+                }
+                else {
+                    rs.close();
+                }
+            } 
+            catch (SQLException e) {
+                // e.printStackTrace();
+                
+                AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
+
+                try {
+                    System.out.println("rollback...");
+                    c1.c.rollback(savepoint);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
-        } catch (SQLException e) {
-            AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
+            finally{
+                try{
+                    if(c1.st != null)
+                    c1.st.close();
+                } catch(SQLException se2){
+                    se2.printStackTrace();
+                } 
+                try{
+                    if(c1.c != null)
+                        c1.c.close();
+                } catch(SQLException se){
+                    se.printStackTrace();
+                }
+            } 
         }
-        setInputsEnabled(true);
+        else {
+            AlertUtil.showErrorAlert(null, "Os campos estão vazios!");
+            setInputsEnabled(true);
+        }
     }
-
+    
     private void handleLoginLink(ActionEvent event) {
         Stage stage = (Stage) emailTextField.getScene().getWindow();
         stage.close();
@@ -119,6 +183,17 @@ public class RegisterPage extends Application {
         senhaTextField.setDisable(!enabled);
     }
 
+    public String generateNumContaSequence(int len) {
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < len; i++) {
+            int digito = random.nextInt(10);
+            builder.append(digito);
+        }
+
+        return builder.toString();
+    }
     public static void main(String[] args) {
         launch(args);
     }

@@ -41,20 +41,22 @@
             "request": "launch",
             "mainClass": "view.user.DetailsUserPage",
             "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "AddUser",
             "request": "launch",
             "mainClass": "view.admin.AddUser",
-            "projectName": "App_81925740"
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
@@ -70,35 +72,39 @@
             "request": "launch",
             "mainClass": "view.admin.LoginPage",
             "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "PrintData",
             "request": "launch",
             "mainClass": "view.admin.PrintData",
-            "projectName": "App_81925740"
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "RemoveUser",
             "request": "launch",
             "mainClass": "view.admin.RemoveUser",
-            "projectName": "App_81925740"
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "UpdatePage",
             "request": "launch",
             "mainClass": "view.admin.UpdatePage",
-            "projectName": "App_81925740"
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "ViewUser",
             "request": "launch",
             "mainClass": "view.admin.ViewUser",
-            "projectName": "App_81925740"
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
@@ -106,7 +112,7 @@
             "request": "launch",
             "mainClass": "view.admin.WelcomePage",
             "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
 }

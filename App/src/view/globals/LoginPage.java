@@ -41,7 +41,7 @@ public class LoginPage extends Application {
 
         GridPane gridPane = createLoginForm();
         loginButton = createButton("Login", "#1E488F", "white");
-        cancelButton = createButton("Cancel", "#dc3545", "white");
+        cancelButton = createButton("Cancelar", "#dc3545", "white");
         registerLink = createRegisterLink();
 
         loginButton.setOnAction(e -> login());
