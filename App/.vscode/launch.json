@@ -6,6 +6,21 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DetailsPage",
+            "request": "launch",
+            "mainClass": "view.admin.DetailsPage",
+            "projectName": "App_81925740",
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "AddUser",
+            "request": "launch",
+            "mainClass": "view.admin.AddUser",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
             "name": "LoginPage",
             "request": "launch",
             "mainClass": "view.globals.LoginPage",
