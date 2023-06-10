@@ -12,15 +12,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.ButtonComponent;
 import view.utils.AlertUtil;
 
 import java.sql.SQLException;
 
+import controller.utils.validador.ValidadorAccountUser;
+import controller.utils.validador.ValidadorAccountUser.ValidationException;
+
 public class AddUser extends Application {
     private Stage stage;
 
-    private TextField nomeTextField, emailTextField, senhaTextField, acessoTextField;
+    private TextField nameTextField, emailTextField, passwordTextField, accessLevelTextField;
     private Button cancelButton;
 
     @Override
@@ -54,8 +58,8 @@ public class AddUser extends Application {
         Label nomeLabel = new Label("Nome:");
         gridPane.add(nomeLabel, 0, 1);
 
-        nomeTextField = new TextField();
-        gridPane.add(nomeTextField, 1, 1);
+        nameTextField = new TextField();
+        gridPane.add(nameTextField, 1, 1);
 
         Label EmailLabel = new Label("Email:");
         gridPane.add(EmailLabel, 0, 2);
@@ -66,14 +70,14 @@ public class AddUser extends Application {
         Label senhaLabel = new Label("Senha:");
         gridPane.add(senhaLabel, 0, 3);
 
-        senhaTextField = new TextField();
-        gridPane.add(senhaTextField, 1, 3);
+        passwordTextField = new TextField();
+        gridPane.add(passwordTextField, 1, 3);
 
         Label acessoLabel = new Label("Acesso:");
         gridPane.add(acessoLabel, 0, 4);
 
-        acessoTextField = new TextField();
-        gridPane.add(acessoTextField, 1, 4);
+        accessLevelTextField = new TextField();
+        gridPane.add(accessLevelTextField, 1, 4);
 
         Button submitButton = new ButtonComponent("Enviar", "#1E488F", "white");
         HBox submitHBox = new HBox(10);
@@ -85,7 +89,6 @@ public class AddUser extends Application {
         Button addButton = new ButtonComponent("Adicionar", "#1E488F", "white");
         addButton.setOnAction(e -> {
             insertEmployeeDetails();
-            clearInputs();
         });
     
         HBox addButtonHBox = new HBox(10);
@@ -104,22 +107,31 @@ public class AddUser extends Application {
 
     private void insertEmployeeDetails() {
         setInputsAndButtonsEnabled(false);
-        String nome = nomeTextField.getText();
+        String name = nameTextField.getText();
         String email = emailTextField.getText();
-        String senha = senhaTextField.getText();
-        String acesso = acessoTextField.getText();
+        String password = passwordTextField.getText();
+        String accessLevel = accessLevelTextField.getText();
+  
 
         try {
-            conn c1 = new conn();
+            ValidadorAccountUser.validateName(name);
+            ValidadorAccountUser.validateEmail(email);
+            ValidadorAccountUser.validatePassword(password);
+            
+            Conn conn = new Conn();
             String query = "INSERT INTO usuario (nome, email, senha, acesso) VALUES ('"
-                + nome + "', '" + email + "', '" + senha + "', '" + Integer.parseInt(acesso) + "')";
-            int rowsAffected = c1.st.executeUpdate(query);
+                    + name + "', '" + email + "', '" + password + "', '" + Integer.parseInt(accessLevel) + "')";
+            int rowsAffected = conn.getStatement().executeUpdate(query);
 
             if (rowsAffected > 0) {
                 AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
             }
+            conn.close();
+            clearInputs();
         } catch (SQLException e) {
             AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
+        } catch (ValidationException e) {
+            AlertUtil.showErrorAlert(null, e.getMessage());
         }
         setInputsAndButtonsEnabled(true);
     }
@@ -131,17 +143,17 @@ public class AddUser extends Application {
     }
     
     private void setInputsAndButtonsEnabled(boolean enabled) {
-        nomeTextField.setDisable(!enabled);
+        nameTextField.setDisable(!enabled);
         emailTextField.setDisable(!enabled);
-        senhaTextField.setDisable(!enabled);
-        acessoTextField.setDisable(!enabled);
+        passwordTextField.setDisable(!enabled);
+        accessLevelTextField.setDisable(!enabled);
     }
     
     private void clearInputs() {
-        nomeTextField.clear();
+        nameTextField.clear();
         emailTextField.clear();
-        senhaTextField.clear();
-        acessoTextField.clear();
+        passwordTextField.clear();
+        accessLevelTextField.clear();
     }
     
     public static void main(String[] args) {

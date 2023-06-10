@@ -2,6 +2,8 @@ package view.admin;
 
 import java.sql.ResultSet;
 
+import controller.utils.validador.ValidadorAccountUser;
+import controller.utils.validador.ValidadorAccountUser.ValidationException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -13,15 +15,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class UpdatePage extends Application {
     private TextField idTextField;
-    private TextField nomeTextField;
+    private TextField nameTextField;
     private TextField emailTextField;
-    private TextField senhaTextField;
-    private TextField acessoTextField;
+    private TextField passwordTextField;
+    private TextField accessLevelTextField;
     private Button searchButton;
     private Button updateButton;
     private ButtonComponent cancelButton;
@@ -40,13 +43,13 @@ public class UpdatePage extends Application {
         searchButton = new ButtonComponent("Procurar", "#007bff", "white");
 
         Label nomeLabel = new Label("Nome:");
-        nomeTextField = new TextField();
+        nameTextField = new TextField();
         Label emailLabel = new Label("Email:");
         emailTextField = new TextField();
         Label senhaLabel = new Label("Senha:");
-        senhaTextField = new TextField();
+        passwordTextField = new TextField();
         Label acessoLabel = new Label("Acesso:");
-        acessoTextField = new TextField();
+        accessLevelTextField = new TextField();
 
         updateButton = new ButtonComponent("Atualizar", "#1E488F", "white");
         cancelButton = new ButtonComponent("Cancelar", "#dc3545", "white");
@@ -65,13 +68,13 @@ public class UpdatePage extends Application {
         gridPane.add(idTextField, 1, 0);
         gridPane.add(searchButton, 2, 0);
         gridPane.add(nomeLabel, 0, 1);
-        gridPane.add(nomeTextField, 1, 1);
+        gridPane.add(nameTextField, 1, 1);
         gridPane.add(emailLabel, 0, 5);
         gridPane.add(emailTextField, 1, 5);
         gridPane.add(senhaLabel, 0, 6);
-        gridPane.add(senhaTextField, 1, 6);
+        gridPane.add(passwordTextField, 1, 6);
         gridPane.add(acessoLabel, 0, 7);
-        gridPane.add(acessoTextField, 1, 7);
+        gridPane.add(accessLevelTextField, 1, 7);
         gridPane.add(updateButton, 0, 8);
         gridPane.add(cancelButton, 1, 8);
 
@@ -82,58 +85,64 @@ public class UpdatePage extends Application {
     }
 
     private void handleSearchButton(ActionEvent event) {
-        String employeeId = idTextField.getText();
-        if (!employeeId.isEmpty()) {
+        String userId = idTextField.getText();
+        if (!userId.isEmpty()) {
             try {
-                String query = "SELECT * FROM usuario WHERE id = '" + employeeId + "'";
-                conn c1 = new conn();
-                ResultSet result = c1.st.executeQuery(query);
+                Conn conn = new Conn();
+                String query = "SELECT * FROM usuario WHERE id = '" + userId + "'";
+                ResultSet result = conn.getStatement().executeQuery(query);
                 if (result.next()) {
                     String nome = result.getString("nome");
                     String email = result.getString("email");
                     String senha = result.getString("senha");
                     String acesso = result.getString("acesso");
 
-                    nomeTextField.setText(nome);
+
+                    nameTextField.setText(nome);
                     emailTextField.setText(email);
-                    senhaTextField.setText(senha);
-                    acessoTextField.setText(acesso);
+                    passwordTextField.setText(senha);
+                    accessLevelTextField.setText(acesso);
                 } else {
-                    AlertUtil.showErrorAlert(null, "Cliente não achado");
+                    AlertUtil.showErrorAlert(null, "Usuário não encontrado");
                 }
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            AlertUtil.showErrorAlert(null, "Digite um id");
+            AlertUtil.showErrorAlert(null, "Digite um ID de usuário");
         }
     }
 
     private void handleUpdateButton(ActionEvent event) {
         String id = idTextField.getText();
-        String nome = nomeTextField.getText();
+        String name = nameTextField.getText();
         String email = emailTextField.getText();
-        String senha = senhaTextField.getText();
-        String acesso = acessoTextField.getText();
+        String password = passwordTextField.getText();
+        String accessLevel = accessLevelTextField.getText();
 
         if (!id.isEmpty()) {
             try {
-                String query = "UPDATE usuario SET nome='" + nome + "', email='" + email + "', senha='" + senha + "', acesso='" + acesso + "' WHERE id='" + id + "'";
-                conn c1 = new conn();
-                int rowsAffected = c1.st.executeUpdate(query);
+                    ValidadorAccountUser.validateName(name);
+                    ValidadorAccountUser.validateEmail(email);
+                    ValidadorAccountUser.validatePassword(password);
+                
+                    Conn conn = new Conn();
+                    String query = "UPDATE usuario SET nome='" + name + "', email='" + email + "', senha='" + password + "', acesso='" + accessLevel + "' WHERE id='" + id + "'";
+                    int rowsAffected = conn.getStatement().executeUpdate(query);
 
-                if (rowsAffected > 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Atualizar dados do Usuário");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Atualizado com sucesso!");
-                    alert.showAndWait();
+                    if (rowsAffected > 0) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Atualizar dados do Usuário");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Atualizado com sucesso!");
+                        alert.showAndWait();
 
-                    idTextField.setText("");
-                    nomeTextField.setText("");
-                    emailTextField.setText("");
-                    senhaTextField.setText("");
-                    acessoTextField.setText("");
+                        idTextField.setText("");
+                        nameTextField.setText("");
+                        emailTextField.setText("");
+                        passwordTextField.setText("");
+                        accessLevelTextField.setText("");
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Atualizar dados do Usuário");
@@ -141,7 +150,11 @@ public class UpdatePage extends Application {
                     alert.setContentText("Usuário não encontrado!");
                     alert.showAndWait();
                 }
-            } catch (Exception e) {
+                conn.close();
+            }catch (ValidationException e) {
+                AlertUtil.showErrorAlert(null, e.getMessage());
+            } 
+            catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }

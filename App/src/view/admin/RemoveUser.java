@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
@@ -22,9 +23,9 @@ public class RemoveUser extends Application {
     private String email;
     private String senha;
     private String acesso;
-    private Label idLabel, nomeLabel, emailLabel, senhaLabel, acessoLabel;
+    private Label idLabel, nameLabel, emailLabel, passwordLabel, acessoLabel;
     private Button searchButton, removeButton, cancelButton;
-    
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -34,14 +35,13 @@ public class RemoveUser extends Application {
         primaryStage.setTitle("Remover usuário");
         primaryStage.setResizable(false);
 
-
         idLabel = new Label("Usuário ID:");
         idTextField = new TextField();
         searchButton = new ButtonComponent("Procurar", "#007bff", "white");
 
-        nomeLabel = new Label("Nome:");
+        nameLabel = new Label("Nome:");
         emailLabel = new Label("Email:");
-        senhaLabel = new Label("Senha:");
+        passwordLabel = new Label("Senha:");
         acessoLabel = new Label("Acesso:");
 
         removeButton = new ButtonComponent("Remover", "#dc3545", "white");
@@ -59,27 +59,25 @@ public class RemoveUser extends Application {
         gridPane.add(idLabel, 0, 0);
         gridPane.add(idTextField, 1, 0);
         gridPane.add(searchButton, 2, 0);
-        gridPane.add(nomeLabel, 0, 1);
+        gridPane.add(nameLabel, 0, 1);
         gridPane.add(emailLabel, 0, 2);
-        gridPane.add(senhaLabel, 0, 3);
+        gridPane.add(passwordLabel, 0, 3);
         gridPane.add(acessoLabel, 0, 4);
         gridPane.add(removeButton, 0, 8);
         gridPane.add(cancelButton, 1, 8);
 
-    
         Scene scene = new Scene(gridPane, 600, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    
+
     private void handleSearchButton(ActionEvent event) {
         String userId = idTextField.getText();
         if (!userId.isEmpty()) {
             try {
-
+                Conn conn = new Conn();
                 String query = "SELECT * FROM usuario WHERE id = '" + userId + "'";
-                conn c1 = new conn();
-                ResultSet result = c1.st.executeQuery(query);
+                ResultSet result = conn.getStatement().executeQuery(query);
                 if (result.next()) {
                     nome = result.getString("nome");
                     email = result.getString("email");
@@ -87,14 +85,14 @@ public class RemoveUser extends Application {
                     acesso = result.getString("acesso");
 
                     // Update UI labels with retrieved information
-                    nomeLabel.setText("Nome: " + nome);
+                    nameLabel.setText("Nome: " + nome);
                     emailLabel.setText("Email: " + email);
-                    senhaLabel.setText("Senha: " + senha);
+                    passwordLabel.setText("Senha: " + senha);
                     acessoLabel.setText("Acesso: " + acesso);
-
                 } else {
                     AlertUtil.showErrorAlert(null, "Usuário não encontrado");
                 }
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -107,11 +105,9 @@ public class RemoveUser extends Application {
         String userId = idTextField.getText();
         if (!userId.isEmpty()) {
             try {
-                // Execute SQL query to remove the user
+                Conn conn = new Conn();
                 String query = "DELETE FROM usuario WHERE id = '" + userId + "'";
-                conn c1 = new conn();
-                int rowsAffected = c1.st.executeUpdate(query);
-                
+                int rowsAffected = conn.getStatement().executeUpdate(query);
                 if (rowsAffected > 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Remover Usuário");
@@ -119,9 +115,9 @@ public class RemoveUser extends Application {
                     alert.setContentText("Usuário removido com sucesso!");
                     alert.showAndWait();
 
-                    nomeLabel.setText("Nome:");
+                    nameLabel.setText("Nome:");
                     emailLabel.setText("Email:");
-                    senhaLabel.setText("Senha:");
+                    passwordLabel.setText("Senha:");
                     acessoLabel.setText("Acesso:");
                     idTextField.setText("");
                 } else {
@@ -131,15 +127,16 @@ public class RemoveUser extends Application {
                     alert.setContentText("Não foi possível encontrar o usuário.");
                     alert.showAndWait();
                 }
+                conn.close();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }
     }
-    
+
     private void handleCancelButton(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
-        new DetailsPage().start(new Stage());;
+        new DetailsPage().start(new Stage());
     }
 }

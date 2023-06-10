@@ -19,9 +19,9 @@ import model.Usuario;
 import view.utils.ButtonComponent;
 import view.user.RegisterPage;
 import view.admin.MainPage;
-import view.admin.conn;
 import view.user.DetailsUserPage;
 import view.utils.AlertUtil;
+import model.database.Conn;
 
 public class LoginPage extends Application {
     private Stage stage;
@@ -69,13 +69,13 @@ public class LoginPage extends Application {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
 
-        Label emaiLabel = new Label("Email:");
+        Label emailLabel = new Label("Email:");
         emailField = new TextField();
 
         Label senhaLabel = new Label("Senha:");
         senhaField = new PasswordField();
 
-        gridPane.add(emaiLabel, 0, 0);
+        gridPane.add(emailLabel, 0, 0);
         gridPane.add(emailField, 1, 0);
         gridPane.add(senhaLabel, 0, 1);
         gridPane.add(senhaField, 1, 1);
@@ -91,17 +91,17 @@ public class LoginPage extends Application {
         String email = emailField.getText();
 		String senha = senhaField.getText();
 
-        if (email == "" || senha == "") {
+        if (email.isEmpty() || senha.isEmpty()) {
             AlertUtil.showErrorAlert(stage, "Login inválido!");
             return;
         }
         try {
-            conn c1 = new conn();
+            Conn conn = new Conn();
             emailField.setDisable(true);
             senhaField.setDisable(true);
             cancelButton.setDisable(true);
 			String query = "select * from usuario where email='"+ email +"' and senha='"+ senha +"' ";
-            ResultSet result = c1.st.executeQuery(query);
+            ResultSet result = conn.getStatement().executeQuery(query);
             if (result.next()) {
                 int acesso = result.getInt("acesso");
                 int id = result.getInt("id");                    
@@ -135,7 +135,7 @@ public class LoginPage extends Application {
 
     private Hyperlink createRegisterLink() {
         Hyperlink link = new Hyperlink("Ainda não possui conta? Se registrar");
-        link.setStyle( "-fx-text-fill:#1E488F ;");
+        link.setStyle("-fx-text-fill:#1E488F;");
         return link;
     }
 
@@ -144,5 +144,4 @@ public class LoginPage extends Application {
         stage.close();
         new RegisterPage().start(new Stage());
     } 
-    
 }

@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.AppSession;
-import view.admin.conn;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
@@ -84,8 +84,8 @@ public class WithdrawPage extends Application {
                     "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() + 
                     "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
                 
-                conn c1 = new conn();
-                int rowsAffected = c1.st.executeUpdate(query);
+                Conn c1 = new Conn();
+                int rowsAffected = c1.getStatement().executeUpdate(query);
 
                 if (rowsAffected > 0) {
                     AlertUtil.showSuccessAlert(stage, "Sacado com sucesso");
