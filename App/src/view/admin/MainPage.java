@@ -1,5 +1,6 @@
 package view.admin;
 
+import controller.admin.MainPageController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,8 +10,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import view.globals.LoginPage;
-import view.user.DetailsUserPage;
 import view.utils.ButtonComponent;
 
 public class MainPage extends Application {
@@ -22,6 +21,9 @@ public class MainPage extends Application {
     private final double addButtonWidthRatio = 0.3;
     private final double logoutButtonWidthRatio = 0.6;
 
+
+    private MainPageController controller = new MainPageController(this);
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Main Page");
@@ -30,13 +32,13 @@ public class MainPage extends Application {
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
 
         manageAccountsButton = createButton("Gerenciar Conta", "#1E488F", "white");
-        manageAccountsButton.setOnAction(e -> handleManageAccounts());
+        manageAccountsButton.setOnAction(controller::handleManageAccounts);
 
         manageUsersButton = createButton("Gerenciar Usuários", "#1E488F", "white");
-        manageUsersButton.setOnAction(e -> handleManageUsers());
+        manageUsersButton.setOnAction(controller::handleManageUsers);
 
         logoutButton = createButton("Sair", "#D32F2F", "white");
-        logoutButton.setOnAction(e -> handleLogout());
+        logoutButton.setOnAction(controller::handleLogout);
 
         gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -74,36 +76,20 @@ public class MainPage extends Application {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
 
-    private void handleManageAccounts() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
 
-        Stage managerUserState = new Stage();
-        
-        new DetailsUserPage().start(managerUserState);
+    public ButtonComponent getManageAccountsButton() {
+        return manageAccountsButton;
     }
 
-    private void handleManageUsers() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-
-        Stage managerUserState = new Stage();
-        
-        new DetailsPage().start(managerUserState);
-  
+    public ButtonComponent getManageUsersButton() {
+        return manageUsersButton;
     }
 
-    private void handleLogout() {
-           
-   
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-        Stage loginPageStage = new Stage();
-        LoginPage loginPage = new LoginPage();
-        loginPage.start(loginPageStage);
-    
-    
+    public ButtonComponent getLogoutButton() {
+        return logoutButton;
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

@@ -42,7 +42,7 @@ public class Conn {
                 connection.close();
         } catch (SQLException e) {
             System.err.println("Failed to close the database connection");
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 }
