@@ -29,7 +29,7 @@ public class AddUser extends Application {
         controller = new AddUserController(this);
 
         stage = primaryStage;
-        primaryStage.setTitle("Add User");
+        primaryStage.setTitle("Adicionar Usuário");
 
         GridPane gridPane = createGridPane();
         addUIControls(gridPane);
