@@ -1,13 +1,8 @@
 package view.admin;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import controller.admin.ListUsersController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Usuario;
-import model.database.Conn;
 import view.utils.ButtonComponent;
 
 public class ListUsersPage extends Application {
