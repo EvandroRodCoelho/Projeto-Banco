@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import view.admin.conn;
+import model.database.Conn;
 import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
@@ -94,8 +94,8 @@ public class UpdateAccount extends Application {
             try {
 
                 String query = "SELECT * FROM contas WHERE id = '" + id + "'";
-                conn c1 = new conn();
-                ResultSet result = c1.st.executeQuery(query);
+                Conn c1 = new Conn();
+                ResultSet result = c1.getStatement().executeQuery(query);
 
                 if (result.next()) {
                     String numConta = result.getString("numConta");
@@ -137,8 +137,8 @@ public class UpdateAccount extends Application {
                 "', usuarioid='" + usuarioId + 
                 "' WHERE id='" + id + "'";
 
-                conn c1 = new conn();
-                int rowsAffected = c1.st.executeUpdate(query);
+                Conn c1 = new Conn();
+                int rowsAffected = c1.getStatement().executeUpdate(query);
 
                 if (rowsAffected > 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);

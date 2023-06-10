@@ -147,23 +147,15 @@ public class RegisterPage extends Application {
             } 
             catch (SQLException e) {
                 // e.printStackTrace();
-                
                 AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
-
                 try {
-                    System.out.println("rollback...");
                     c1.getConnection().rollback(savepoint);
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             } catch (ValidationException e) {
                 AlertUtil.showErrorAlert(null, e.getMessage());
-                try {
-                    System.out.println("rollback...");
-                    c1.getConnection().rollback(savepoint);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                e.printStackTrace();
             }
             finally{
                 try{

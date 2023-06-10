@@ -18,7 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.Conta;
-import view.admin.conn;
+import model.database.Conn;
 import view.utils.ButtonComponent;
 
 public class ListAccountsPage extends Application {
@@ -118,9 +118,9 @@ public class ListAccountsPage extends Application {
         ObservableList<Conta> contas = FXCollections.observableArrayList();
 
         try {
-            conn c1 = new conn();
+            Conn c1 = new Conn();
             String query = "SELECT * FROM contas";
-            ResultSet rs = c1.st.executeQuery(query);
+            ResultSet rs = c1.getStatement().executeQuery(query);
 
             while (rs.next()) {
                 int id = rs.getInt("id");  
@@ -135,7 +135,7 @@ public class ListAccountsPage extends Application {
             }
 
             rs.close();
-            c1.st.close();
+            c1.getStatement().close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

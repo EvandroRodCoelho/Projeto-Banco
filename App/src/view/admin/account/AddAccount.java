@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import view.utils.ButtonComponent;
-import view.admin.conn;
+import model.database.Conn;
 import view.utils.AlertUtil;
 
 import java.sql.SQLException;
@@ -118,14 +118,14 @@ public class AddAccount extends Application {
         String usuarioid = usuarioIdTextField.getText();
 
         try {
-            conn c1 = new conn();
+            Conn c1 = new Conn();
             String query = "INSERT INTO contas (numconta, titular, saldo, tipoconta, usuarioid) VALUES ('"
                 + numconta + "', '" 
                 + titular + "', '" 
                 + saldo + "', '" 
                 + tipoconta + "', '" 
                 + usuarioid + "')";
-            int rowsAffected = c1.st.executeUpdate(query);
+            int rowsAffected = c1.getStatement().executeUpdate(query);
 
             if (rowsAffected > 0) {
                 AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
