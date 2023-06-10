@@ -1,4 +1,5 @@
 package view.admin;
+import controller.admin.DetailsPageController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -8,7 +9,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import view.globals.LoginPage;
 import view.utils.ButtonComponent;
 
 public class DetailsPage extends Application {
@@ -17,7 +17,7 @@ public class DetailsPage extends Application {
     private ButtonComponent viewButton, updateButton, removeButton, addButton, logoutButton;
     private double addButtonWidthRatio = 0.3;
     private double logoutButtonWidthRatio = 0.6;
-
+    DetailsPageController controller = new DetailsPageController();
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Dashboard");
@@ -26,19 +26,19 @@ public class DetailsPage extends Application {
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
 
         addButton = createButton("Adicionar usuário", "#1E488F", "white");
-        addButton.setOnAction(e -> openAddClientPage());
+        addButton.setOnAction(controller::handleAddButtonAction);
 
         viewButton = createButton("Visualizar usuários", "#1E488F", "white");
-        viewButton.setOnAction(e -> openViewEmployeePage());
+        viewButton.setOnAction(controller::handleViewButtonAction);
 
         removeButton = createButton("Remover usuário", "#1E488F", "white");
-        removeButton.setOnAction(e -> openRemoveClientPage());
+        removeButton.setOnAction(controller::handleRemoveButtonAction);
 
         updateButton = createButton("Atualizar usuário", "#1E488F", "white");
-        updateButton.setOnAction(e -> openUpdatePage());
+        updateButton.setOnAction(controller::handleUpdateButtonAction);
 
         logoutButton = createButton("Sair", "#D32F2F", "white");
-        logoutButton.setOnAction(e -> logout());
+        logoutButton.setOnAction(controller::handleLogoutButtonAction);
         logoutButton.setMaxWidth(Double.MAX_VALUE);
         gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -77,50 +77,6 @@ public class DetailsPage extends Application {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
 
-    private void openAddClientPage() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-
-        Stage addEmployeeStage = new Stage();
-        AddUser addEmployeePage = new AddUser();
-        addEmployeePage.start(addEmployeeStage);
-    }
-
-    private void openRemoveClientPage() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-
-        Stage removeUserStage = new Stage();
-        RemoveUser removeUserPage = new RemoveUser();
-        removeUserPage.start(removeUserStage);
-    }
-
-    private void openViewEmployeePage() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-
-        Stage viewEmployeeStage = new Stage();
-        ListUsersPage viewUserPage = new ListUsersPage();
-        viewUserPage.start(viewEmployeeStage);
-    }
-
-    private void openUpdatePage() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-        
-        Stage viewUserStage = new Stage();
-        UpdatePage updatePage = new UpdatePage();
-        updatePage.start(viewUserStage);
-    }
-    
-    private void logout() {
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-        stage.close();
-
-        Stage loginPageStage = new Stage();
-        LoginPage loginPage = new LoginPage();
-        loginPage.start(loginPageStage);
-    }
 
     public static void main(String[] args) {
         launch(args);

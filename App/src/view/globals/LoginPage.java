@@ -1,7 +1,6 @@
 package view.globals;
 
-import java.sql.ResultSet;
-
+import controller.globals.LoginController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,19 +13,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
-import model.AppSession;
-import model.Usuario;
 import view.utils.ButtonComponent;
-import view.user.RegisterPage;
-import view.admin.MainPage;
-import view.user.DetailsUserPage;
-import view.utils.AlertUtil;
-import model.database.Conn;
+
 
 public class LoginPage extends Application {
-    private Stage stage;
+    public Stage stage;
     private TextField emailField;
-    private PasswordField senhaField;
+    private PasswordField passwordField;
     private Button loginButton, cancelButton;
     private Hyperlink registerLink;
 
@@ -44,9 +37,6 @@ public class LoginPage extends Application {
         cancelButton = createButton("Cancelar", "#dc3545", "white");
         registerLink = createRegisterLink();
 
-        loginButton.setOnAction(e -> login());
-        cancelButton.setOnAction(e -> stage.close());
-        registerLink.setOnAction(e -> register());
         VBox buttonBox = new VBox(10, loginButton, cancelButton);
         buttonBox.setAlignment(Pos.CENTER);
 
@@ -60,6 +50,13 @@ public class LoginPage extends Application {
         Scene scene = new Scene(vbox, 600, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        LoginController loginController = new LoginController(this);
+
+        loginButton.setOnAction(loginController::handleLoginButtonAction);
+        cancelButton.setOnAction(loginController::handleCancelAction);
+        registerLink.setOnAction(loginController::handleRegisterAction);
+        
     }
 
     private GridPane createLoginForm() {
@@ -73,12 +70,12 @@ public class LoginPage extends Application {
         emailField = new TextField();
 
         Label senhaLabel = new Label("Senha:");
-        senhaField = new PasswordField();
+        passwordField = new PasswordField();
 
         gridPane.add(emailLabel, 0, 0);
         gridPane.add(emailField, 1, 0);
         gridPane.add(senhaLabel, 0, 1);
-        gridPane.add(senhaField, 1, 1);
+        gridPane.add(passwordField, 1, 1);
 
         return gridPane;
     }
@@ -87,61 +84,26 @@ public class LoginPage extends Application {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
 
-    private void login() {
-        String email = emailField.getText();
-		String senha = senhaField.getText();
-
-        if (email.isEmpty() || senha.isEmpty()) {
-            AlertUtil.showErrorAlert(stage, "Login inválido!");
-            return;
-        }
-        try {
-            Conn conn = new Conn();
-            emailField.setDisable(true);
-            senhaField.setDisable(true);
-            cancelButton.setDisable(true);
-			String query = "select * from usuario where email='"+ email +"' and senha='"+ senha +"' ";
-            ResultSet result = conn.getStatement().executeQuery(query);
-            if (result.next()) {
-                int acesso = result.getInt("acesso");
-                int id = result.getInt("id");                    
-                String userName = result.getString("nome");
-                String userEmail = result.getString("email");
-                String userAccountType = result.getString("senha");
-                int accountNum = result.getInt("acesso");
-
-                Usuario user = new Usuario(id, userName, userEmail, userAccountType, accountNum);
-                AppSession.setUsuarioLogado(user); 
-                if (acesso == 2) {                    
-                    new MainPage().start(new Stage());
-                    stage.close();
-                } else {
-                    new DetailsUserPage().start(new Stage());
-                    stage.close();
-                }
-            } else {
-                AlertUtil.showErrorAlert(stage, "Login inválido!");
-                emailField.setDisable(false);
-                senhaField.setDisable(false);
-                cancelButton.setDisable(false);
-            }
-        } catch (Exception ex) {
-            AlertUtil.showErrorAlert(stage,"Ocorreu um erro inesperado!");
-            emailField.setDisable(false);
-            senhaField.setDisable(false);
-            cancelButton.setDisable(false);
-        }
-    }
-
+  
     private Hyperlink createRegisterLink() {
         Hyperlink link = new Hyperlink("Ainda não possui conta? Se registrar");
         link.setStyle("-fx-text-fill:#1E488F;");
         return link;
     }
+    public Stage getStage() {
+        return stage;
+    }
 
-    private void register() {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
-        new RegisterPage().start(new Stage());
-    } 
+    public TextField getEmaTextField() {
+        return emailField;
+    }
+
+    public TextField getPasswordTextField() {
+        return passwordField;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
 }

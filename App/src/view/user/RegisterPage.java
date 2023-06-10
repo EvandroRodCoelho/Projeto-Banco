@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -29,8 +30,8 @@ import controller.utils.validador.ValidadorAccountUser.ValidationException;
 public class RegisterPage extends Application {
     private Stage stage;
 
-    private TextField nameTextField, emailTextField, passwordTextField;
-
+    private TextField nameTextField, emailTextField;
+    private PasswordField passwordTextField;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -74,7 +75,7 @@ public class RegisterPage extends Application {
         Label passwordLabel = new Label("Senha:");
         gridPane.add(passwordLabel, 0, 3);
 
-        passwordTextField = new TextField();
+        passwordTextField = new PasswordField();
         gridPane.add(passwordTextField, 1, 3);
 
         Button submitButton = new ButtonComponent("Enviar", "#1E488F", "white");
@@ -145,8 +146,7 @@ public class RegisterPage extends Application {
                     rs.close();
                 }
             } 
-            catch (SQLException e) {
-                // e.printStackTrace();
+            catch (SQLException e) {                
                 AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
                 try {
                     c1.getConnection().rollback(savepoint);
@@ -167,9 +167,10 @@ public class RegisterPage extends Application {
                 try{
                     if(c1.getConnection() != null)
                         c1.close();
-                } catch(Exception se){
+                } catch (Exception se) {
                     se.printStackTrace();
                 }
+                setInputsEnabled(true);
             } 
         }
         else {
