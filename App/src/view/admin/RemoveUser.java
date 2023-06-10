@@ -23,7 +23,7 @@ public class RemoveUser extends Application {
     private String email;
     private String senha;
     private String acesso;
-    private Label idLabel, nomeLabel, emailLabel, senhaLabel, acessoLabel;
+    private Label idLabel, nameLabel, emailLabel, passwordLabel, acessoLabel;
     private Button searchButton, removeButton, cancelButton;
 
     public static void main(String[] args) {
@@ -39,9 +39,9 @@ public class RemoveUser extends Application {
         idTextField = new TextField();
         searchButton = new ButtonComponent("Procurar", "#007bff", "white");
 
-        nomeLabel = new Label("Nome:");
+        nameLabel = new Label("Nome:");
         emailLabel = new Label("Email:");
-        senhaLabel = new Label("Senha:");
+        passwordLabel = new Label("Senha:");
         acessoLabel = new Label("Acesso:");
 
         removeButton = new ButtonComponent("Remover", "#dc3545", "white");
@@ -59,9 +59,9 @@ public class RemoveUser extends Application {
         gridPane.add(idLabel, 0, 0);
         gridPane.add(idTextField, 1, 0);
         gridPane.add(searchButton, 2, 0);
-        gridPane.add(nomeLabel, 0, 1);
+        gridPane.add(nameLabel, 0, 1);
         gridPane.add(emailLabel, 0, 2);
-        gridPane.add(senhaLabel, 0, 3);
+        gridPane.add(passwordLabel, 0, 3);
         gridPane.add(acessoLabel, 0, 4);
         gridPane.add(removeButton, 0, 8);
         gridPane.add(cancelButton, 1, 8);
@@ -85,9 +85,9 @@ public class RemoveUser extends Application {
                     acesso = result.getString("acesso");
 
                     // Update UI labels with retrieved information
-                    nomeLabel.setText("Nome: " + nome);
+                    nameLabel.setText("Nome: " + nome);
                     emailLabel.setText("Email: " + email);
-                    senhaLabel.setText("Senha: " + senha);
+                    passwordLabel.setText("Senha: " + senha);
                     acessoLabel.setText("Acesso: " + acesso);
                 } else {
                     AlertUtil.showErrorAlert(null, "Usuário não encontrado");
@@ -115,9 +115,9 @@ public class RemoveUser extends Application {
                     alert.setContentText("Usuário removido com sucesso!");
                     alert.showAndWait();
 
-                    nomeLabel.setText("Nome:");
+                    nameLabel.setText("Nome:");
                     emailLabel.setText("Email:");
-                    senhaLabel.setText("Senha:");
+                    passwordLabel.setText("Senha:");
                     acessoLabel.setText("Acesso:");
                     idTextField.setText("");
                 } else {
