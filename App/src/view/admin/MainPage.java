@@ -10,7 +10,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import view.globals.LoginPage;
-import view.user.DetailsUserPage;
 import view.utils.ButtonComponent;
 
 public class MainPage extends Application {
@@ -78,9 +77,9 @@ public class MainPage extends Application {
         Stage currentStage = (Stage) gridPane.getScene().getWindow();
         currentStage.close();
 
-        Stage managerUserState = new Stage();
+        Stage managerState = new Stage();
         
-        new DetailsUserPage().start(managerUserState);
+        new view.admin.account.DetailsPage().start(managerState);
     }
 
     private void handleManageUsers() {
@@ -90,19 +89,15 @@ public class MainPage extends Application {
         Stage managerUserState = new Stage();
         
         new DetailsPage().start(managerUserState);
-  
     }
 
     private void handleLogout() {
-           
    
         Stage currentStage = (Stage) gridPane.getScene().getWindow();
         currentStage.close();
         Stage loginPageStage = new Stage();
         LoginPage loginPage = new LoginPage();
         loginPage.start(loginPageStage);
-    
-    
     }
 
     public static void main(String[] args) {
