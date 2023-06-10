@@ -127,6 +127,9 @@ public class LoginPage extends Application {
             }
         } catch (Exception ex) {
             AlertUtil.showErrorAlert(stage,"Ocorreu um erro inesperado!");
+            emailField.setDisable(false);
+            senhaField.setDisable(false);
+            cancelButton.setDisable(false);
         }
     }
 

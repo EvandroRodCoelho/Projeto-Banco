@@ -26,7 +26,7 @@ public class AddUser extends Application {
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
-        primaryStage.setTitle("Add Employee");
+        primaryStage.setTitle("Adicionar Usuário");
 
         GridPane gridPane = createGridPane();
         addUIControls(gridPane);

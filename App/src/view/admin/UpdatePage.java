@@ -32,7 +32,7 @@ public class UpdatePage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Update Cliente");
+        primaryStage.setTitle("Atualizar Usuário");
         primaryStage.setResizable(false);
 
         Label idLabel = new Label("Usuário ID:");
