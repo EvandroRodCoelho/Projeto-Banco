@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import view.admin.DetailsPage;
 import view.admin.MainPage;
 import view.globals.LoginPage;
-import view.user.DetailsUserPage;
 
 public class MainPageController {
     MainPage view;
@@ -17,9 +16,9 @@ public class MainPageController {
         Stage currentStage = (Stage) view.getManageAccountsButton().getScene().getWindow();
         currentStage.close();
 
-        Stage managerUserState = new Stage();
+        Stage managerState = new Stage();
         
-        new DetailsUserPage().start(managerUserState);
+        new view.admin.account.DetailsPage().start(managerState);
     }
 
     public void handleManageUsers(ActionEvent event) {
