@@ -6,21 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "ListUsersPage",
-            "request": "launch",
-            "mainClass": "view.admin.ListUsersPage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "MainPage",
-            "request": "launch",
-            "mainClass": "view.admin.MainPage",
-            "projectName": "App_81925740"
-        },
-        {
-            "type": "java",
             "name": "LoginPage",
             "request": "launch",
             "mainClass": "view.globals.LoginPage",
@@ -29,90 +14,108 @@
         },
         {
             "type": "java",
-            "name": "DepositPage",
-            "request": "launch",
-            "mainClass": "view.user.DepositPage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
-            "name": "DetailsUserPage",
-            "request": "launch",
-            "mainClass": "view.user.DetailsUserPage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
-        },
-        {
-            "type": "java",
             "name": "Current File",
             "request": "launch",
-            "mainClass": "${file}",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "${file}"
         },
         {
             "type": "java",
             "name": "AddUser",
             "request": "launch",
-            "mainClass": "view.admin.AddUser",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.admin.AddUser",
+            "projectName": "App_81925740"
         },
         {
             "type": "java",
             "name": "DetailsPage",
             "request": "launch",
-            "mainClass": "view.admin.DetailsPage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.admin.DetailsPage",
+            "projectName": "App_81925740"
         },
         {
             "type": "java",
-            "name": "LoginPage",
+            "name": "ListUsersPage",
             "request": "launch",
-            "mainClass": "view.admin.LoginPage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.admin.ListUsersPage",
+            "projectName": "App_81925740"
         },
         {
             "type": "java",
-            "name": "PrintData",
+            "name": "MainPage",
             "request": "launch",
-            "mainClass": "view.admin.PrintData",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.admin.MainPage",
+            "projectName": "App_81925740"
         },
         {
             "type": "java",
             "name": "RemoveUser",
             "request": "launch",
-            "mainClass": "view.admin.RemoveUser",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.admin.RemoveUser",
+            "projectName": "App_81925740"
         },
         {
             "type": "java",
             "name": "UpdatePage",
             "request": "launch",
-            "mainClass": "view.admin.UpdatePage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.admin.UpdatePage",
+            "projectName": "App_81925740"
         },
         {
             "type": "java",
-            "name": "ViewUser",
+            "name": "LoginPage",
             "request": "launch",
-            "mainClass": "view.admin.ViewUser",
+            "mainClass": "src.view.globals.LoginPage",
             "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-17/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
             "name": "WelcomePage",
             "request": "launch",
-            "mainClass": "view.admin.WelcomePage",
-            "projectName": "App_81925740",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+            "mainClass": "src.view.globals.WelcomePage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "BalanceCheckPage",
+            "request": "launch",
+            "mainClass": "src.view.user.BalanceCheckPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "DepositPage",
+            "request": "launch",
+            "mainClass": "src.view.user.DepositPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "DetailsUserPage",
+            "request": "launch",
+            "mainClass": "src.view.user.DetailsUserPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "RegisterPage",
+            "request": "launch",
+            "mainClass": "src.view.user.RegisterPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "TransfererPage",
+            "request": "launch",
+            "mainClass": "src.view.user.TransfererPage",
+            "projectName": "App_81925740"
+        },
+        {
+            "type": "java",
+            "name": "WithdrawPage",
+            "request": "launch",
+            "mainClass": "src.view.user.WithdrawPage",
+            "projectName": "App_81925740"
         }
     ]
 }
