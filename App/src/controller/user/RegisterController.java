@@ -66,7 +66,7 @@ public class RegisterController {
                     rs.close();
 
                     if (rowsAffectedBankAcc > 0) {
-                        AlertUtil.showSuccessAlert(view.getStage(), "Adicionado com sucesso.\n Num Da conta: "+ numconta);
+                        AlertUtil.showSuccessAlert(view.getStage(), "Adicionado com sucesso.\n Conta Bancária: "+ numconta);
                         handleLoginLink(null);
                     }
                 }

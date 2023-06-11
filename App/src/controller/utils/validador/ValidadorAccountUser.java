@@ -8,9 +8,9 @@ public class ValidadorAccountUser {
         boolean doesNotContainSpecialCharacters = !name.matches(".*[!@#$%¨&*()_+^{}:;\"'<>?,./].*");
     
         if(name.length() < 2)
-            throw new ValidationException("Nome invalido:Deve conter mais dois caracteres");
+            throw new ValidationException("Nome invalido: Deve conter mais dois caracteres");
         if (!containsOnlyLetters || !doesNotContainNumbers || !doesNotContainSpecialCharacters)
-            throw new ValidationException("Nome invalido:Não pode conter letras e caracteres especiais.");
+            throw new ValidationException("Nome invalido: Não pode conter números ou caracteres especiais.");
 
     }
         
