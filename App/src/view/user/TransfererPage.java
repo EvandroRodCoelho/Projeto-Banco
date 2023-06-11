@@ -1,7 +1,6 @@
 package view.user;
 
-import java.sql.ResultSet;
-
+import controller.user.TransfererController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,8 +15,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.AppSession;
-import model.database.Conn;
-import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class TransfererPage extends Application {
@@ -30,19 +27,21 @@ public class TransfererPage extends Application {
     private TextField accountNumberTextField;
     private Label balanceLabel;
 
+    TransfererController controller;
+
     @Override
     public void start(Stage primaryStage) {
-        
+        controller = new TransfererController(this);
         primaryStage.setTitle("Transferência");
 
         Text title = new Text("Transferência");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
 
         transferButton = createButton("Transferir", "#1E488F", "white");
-        transferButton.setOnAction(e -> handleTransfer());
+        transferButton.setOnAction(e -> controller.handleTransfer());
 
         cancelButton = createButton("Cancelar", "#D32F2F", "white");
-        cancelButton.setOnAction(e -> goBackToDetailsPage());
+        cancelButton.setOnAction(e -> controller.goBackToDetailsPage());
 
         amountTextField = new TextField();
         amountTextField.setPromptText("Digite o valor a ser transferido");
@@ -71,75 +70,41 @@ public class TransfererPage extends Application {
         Scene scene = new Scene(gridPane, 400, 350);
         primaryStage.setScene(scene);
         primaryStage.show();
+        stage = primaryStage;
     }
 
     private ButtonComponent createButton(String text, String backgroundColor, String textColor) {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
 
-    private void handleTransfer() {
-        String amountField = amountTextField.getText();
-        double amount = Double.parseDouble(amountField);
+ 
 
-        String accountNumberField = accountNumberTextField.getText();
-
-        if (!amountField.isEmpty() && !accountNumberField.isEmpty()) {
-            try {
-                Conn c1 = new Conn();
-        
-                String query = "select * from contas where numconta = '" + accountNumberField + "'";
-                ResultSet rs = c1.getStatement().executeQuery(query);
-        
-                if (rs.next()) {
-                    double totalAmountOriginAccount = AppSession.getContaUsuarioLogado().getSaldo() - amount;
-                    double totalAmountDestinationAccount = rs.getDouble("saldo") + amount;
-                
-                    Conn c2 = new Conn();
-                    String originAccountQuery = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() +
-                        "', titular='" + AppSession.getContaUsuarioLogado().getTitular() +
-                        "', saldo='" + totalAmountOriginAccount +
-                        "', tipoconta='" + AppSession.getContaUsuarioLogado().getTipoConta() +
-                        "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() +
-                        "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
-        
-                    int rowsAffectedOriginAccount = c2.getStatement().executeUpdate(originAccountQuery);
-        
-                    Conn c3 = new Conn(); 
-                    String destinationAccountQuery = "UPDATE contas SET numconta='" + rs.getString("numconta") +
-                        "', titular='" + rs.getString("titular") +
-                        "', saldo='" + totalAmountDestinationAccount +
-                        "', tipoconta='" + rs.getInt("tipoconta") +
-                        "', usuarioid='" + rs.getInt("usuarioid") +
-                        "' WHERE id='" + rs.getInt("id") + "'";
-        
-                    int rowsAffectedDestinationAccount = c3.getStatement().executeUpdate(destinationAccountQuery);
-
-                    rs.close();
-        
-                    if (rowsAffectedOriginAccount > 0 && rowsAffectedDestinationAccount > 0) {
-                        AlertUtil.showSuccessAlert(stage, "Transferido com sucesso");
-                        goBackToDetailsPage();
-                    } else {
-                        AlertUtil.showErrorAlert(null, "Erro ao transferir!");
-                    }
-                } else {
-                    rs.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            AlertUtil.showErrorAlert(null, "Os campos estão vazios!");
-        }        
+    public Stage getStage() {
+        return stage;
     }
 
-    private void goBackToDetailsPage() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
+    public GridPane getGridPane() {
+        return gridPane;
+    }
 
-        Stage detailsUserStage = new Stage();
-        DetailsUserPage detailsUserPage = new DetailsUserPage();
-        detailsUserPage.start(detailsUserStage);
+    public ButtonComponent getTransferButton() {
+        return transferButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public TextField getAmountTextField() {
+        return amountTextField;
+    }
+
+    public TextField getAccountNumberTextField() {
+        return accountNumberTextField;
+    }
+
+    public Label getBalanceLabel() {
+        return balanceLabel;
     }
 
     public static void main(String[] args) {

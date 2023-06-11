@@ -10,7 +10,6 @@ import view.globals.LoginPage;
 import view.user.DetailsUserPage;
 import view.user.RegisterPage;
 import view.utils.AlertUtil;
-import view.utils.ButtonComponent;
 
 import java.sql.ResultSet;
 
@@ -25,7 +24,7 @@ public class LoginController {
     public void handleLoginButtonAction(ActionEvent event) {
         String email = view.getEmaTextField().getText();
         String password = view.getPasswordTextField().getText();
-        Stage currentStage = (Stage)  ((ButtonComponent) event.getSource()).getScene().getWindow();
+        Stage currentStage = (Stage)  view.getCancelButton().getScene().getWindow();
         if (email.isEmpty() || password.isEmpty()) {
             AlertUtil.showErrorAlert(view.getStage(), "Login inválido!");
             return;
@@ -44,7 +43,6 @@ public class LoginController {
                 String userEmail = result.getString("email");
                 String userAccountType = result.getString("senha");
                 int accountNum = result.getInt("acesso");
-
                 Usuario user = new Usuario(id, userName, userEmail, userAccountType, accountNum);
                 AppSession.setUsuarioLogado(user);
 
@@ -66,6 +64,7 @@ public class LoginController {
                 view.getEmaTextField().setDisable(false);
                 view.getPasswordTextField().setDisable(false);
                 view.getCancelButton().setDisable(false);
+                System.out.println(ex);
         }
     }
 

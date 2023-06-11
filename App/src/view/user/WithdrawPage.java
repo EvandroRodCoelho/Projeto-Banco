@@ -1,5 +1,6 @@
 package view.user;
 
+import controller.user.WithdrawController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,8 +15,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.AppSession;
-import model.database.Conn;
-import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class WithdrawPage extends Application {
@@ -26,19 +25,21 @@ public class WithdrawPage extends Application {
     private Button cancelButton;
     private TextField amountTextField;
     private Label balanceLabel;
-
+    private WithdrawController controller;
     @Override
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("Saque");
+        controller = new WithdrawController(this);
 
         Text title = new Text("Saque");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
 
         withdrawButton = createButton("Sacar", "#1E488F", "white");
-        withdrawButton.setOnAction(e -> handleWithdraw());
+        withdrawButton.setOnAction(e -> controller.handleWithdraw());
 
         cancelButton = createButton("Cancelar", "#D32F2F", "white");
-        cancelButton.setOnAction(e -> goBackToDetailsPage());
+        cancelButton.setOnAction(e -> controller.goBackToDetailsPage());
 
         amountTextField = new TextField();
         amountTextField.setPromptText("Digite o valor a ser sacado");
@@ -62,54 +63,35 @@ public class WithdrawPage extends Application {
         Scene scene = new Scene(gridPane, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
+        stage = primaryStage;
     }
 
     private ButtonComponent createButton(String text, String backgroundColor, String textColor) {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
-
-    private void handleWithdraw() {
-        String amountField = amountTextField.getText();
-
-        double amountConverted = Integer.parseInt(amountTextField.getText());
-        double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
-        double totalAmount = currentAmount - amountConverted;
-
-        if (!amountField.isEmpty()) {
-            try {
-                String query = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() + 
-                    "', titular='" + AppSession.getContaUsuarioLogado().getTitular() + 
-                    "', saldo='" + totalAmount + 
-                    "', tipoconta='" + AppSession.getContaUsuarioLogado().getTipoConta() + 
-                    "', usuarioid='" + AppSession.getContaUsuarioLogado().getUsuarioId() + 
-                    "' WHERE id='" + AppSession.getContaUsuarioLogado().getId() + "'";
-                
-                Conn c1 = new Conn();
-                int rowsAffected = c1.getStatement().executeUpdate(query);
-
-                if (rowsAffected > 0) {
-                    AlertUtil.showSuccessAlert(stage, "Sacado com sucesso");
-                    goBackToDetailsPage();
-                } else {
-                    AlertUtil.showErrorAlert(null, "Erro ao sacar!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            AlertUtil.showErrorAlert(null, "O campo está vazio!");
-        }
-
-        amountTextField.clear();
+ 
+    public Stage getStage() {
+        return stage;
     }
 
-    private void goBackToDetailsPage() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
+    public GridPane getGridPane() {
+        return gridPane;
+    }
 
-        Stage detailsUserStage = new Stage();
-        DetailsUserPage detailsUserPage = new DetailsUserPage();
-        detailsUserPage.start(detailsUserStage);
+    public ButtonComponent getWithdrawButton() {
+        return withdrawButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public TextField getAmountTextField() {
+        return amountTextField;
+    }
+
+    public Label getBalanceLabel() {
+        return balanceLabel;
     }
 
     public static void main(String[] args) {

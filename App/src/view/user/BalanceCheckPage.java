@@ -1,5 +1,6 @@
 package view.user;
 
+import controller.user.BalanceCheckController;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,20 +17,25 @@ import model.AppSession;
 import view.utils.ButtonComponent;
 
 public class BalanceCheckPage extends Application {
-
+    private Stage stage;
     private GridPane gridPane;
     private Button cancelButton;
     private Label balanceLabel;
+    private BalanceCheckController controller;
 
     @Override
     public void start(Stage primaryStage) {
+
         primaryStage.setTitle("Verificação de Saldo");
+        stage = primaryStage;
+        controller = new BalanceCheckController(this);
+
 
         Text title = new Text("Verificação de Saldo");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
 
         cancelButton = createButton("Cancelar", "#D32F2F", "white");
-        cancelButton.setOnAction(e -> handleCancelButton());
+        cancelButton.setOnAction(e ->controller.handleCancelButton());
 
         balanceLabel = new Label("Seu saldo atual é: R$ " + AppSession.getContaUsuarioLogado().getSaldo());
 
@@ -54,14 +60,22 @@ public class BalanceCheckPage extends Application {
         return new ButtonComponent(text, backgroundColor, textColor);
     }
 
-    private void handleCancelButton() {
-        Stage currentStage = (Stage) gridPane.getScene().getWindow();
-        currentStage.close();
-
-        Stage detailsUserStage = new Stage();
-        DetailsUserPage detailsUserPage = new DetailsUserPage();
-        detailsUserPage.start(detailsUserStage);
+    public Stage getStage() {
+        return stage;
     }
+
+    public GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public Label getBalanceLabel() {
+        return balanceLabel;
+    }
+
 
     public static void main(String[] args) {
         launch(args);
