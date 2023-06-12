@@ -1,5 +1,6 @@
 package controller.user;
 
+import controller.utils.validador.ValidatorData;
 import javafx.stage.Stage;
 import model.AppSession;
 import model.database.Conn;
@@ -13,15 +14,17 @@ public class DepositController {
     public DepositController(DepositPage view) {
         this.view = view;
     }
-    public void handleDeposit(){
+    public void handleDeposit() {
         String amountField = view.getAmountTextField().getText();
-
-        double amountConverted = Integer.parseInt(view.getAmountTextField().getText());
-        double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
-        double totalAmount = amountConverted + currentAmount;
 
         if (!amountField.isEmpty()) {
             try {
+                ValidatorData.isValidNumber(amountField);
+
+                double amountConverted = Integer.parseInt(view.getAmountTextField().getText());
+                double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
+                double totalAmount = amountConverted + currentAmount;
+
                 String query = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() + 
                     "', titular='" + AppSession.getContaUsuarioLogado().getTitular() + 
                     "', saldo='" + totalAmount + 
@@ -38,7 +41,11 @@ public class DepositController {
                 } else {
                     AlertUtil.showErrorAlert(view.getStage(), "Erro ao depositar!");
                 }
-            } catch (Exception e) {
+            } 
+            catch (NumberFormatException e) {
+                AlertUtil.showErrorAlert(view.getStage(), "Somente números são aceitos!");
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         } else {

@@ -2,6 +2,7 @@ package controller.user;
 
 import java.sql.ResultSet;
 
+import controller.utils.validador.ValidatorData;
 import javafx.stage.Stage;
 import model.AppSession;
 import model.database.Conn;
@@ -18,12 +19,15 @@ public class TransfererController {
 
     public void handleTransfer() {
         String amountField = view.getAmountTextField().getText();
-        double amount = Double.parseDouble(amountField);
-
         String accountNumberField = view.getAccountNumberTextField().getText();
 
         if (!amountField.isEmpty() && !accountNumberField.isEmpty()) {
             try {
+                ValidatorData.isValidNumber(amountField);
+                ValidatorData.isValidNumber(accountNumberField);
+
+                double amount = Double.parseDouble(amountField);
+
                 Conn c1 = new Conn();
         
                 String query = "select * from contas where numconta = '" + accountNumberField + "'";
@@ -64,7 +68,10 @@ public class TransfererController {
                 } else {
                     rs.close();
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+                AlertUtil.showErrorAlert(view.getStage(), "Somente números são aceitos!");
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         } else {

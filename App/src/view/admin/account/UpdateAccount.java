@@ -2,6 +2,7 @@ package view.admin.account;
 
 import java.sql.ResultSet;
 
+import controller.utils.validador.ValidatorData;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -18,6 +19,8 @@ import view.utils.AlertUtil;
 import view.utils.ButtonComponent;
 
 public class UpdateAccount extends Application {
+    private Stage stage;
+
     private TextField idTextField, numContaTextField, titularTextField, saldoTextField, tipoContaTextField, usuarioIdTextField;
     private Button searchButton;
     private Button updateButton;
@@ -29,6 +32,8 @@ public class UpdateAccount extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        stage = primaryStage;
+        
         primaryStage.setTitle("Atualizar Conta");
         primaryStage.setResizable(false);
 
@@ -124,12 +129,17 @@ public class UpdateAccount extends Application {
         String id = idTextField.getText();
         String numConta = numContaTextField.getText();
         String titular = titularTextField.getText();
-        Double saldo = Double.parseDouble(saldoTextField.getText());
-        Integer tipoConta = Integer.parseInt(tipoContaTextField.getText());
-        Integer usuarioId = Integer.parseInt(usuarioIdTextField.getText());
+        String saldo = saldoTextField.getText();
+        String tipoConta = tipoContaTextField.getText();
+        String usuarioId = usuarioIdTextField.getText();
 
         if (!id.isEmpty()) {
             try {
+                ValidatorData.isValidNumber(saldo);
+                ValidatorData.isValidNumber(numConta);
+                ValidatorData.isValidNumber(tipoConta);
+                ValidatorData.isValidNumber(usuarioId);
+
                 String query = "UPDATE contas SET numconta='"+ numConta + 
                 "', titular='" + titular + 
                 "', saldo='" + saldo + 
@@ -155,6 +165,8 @@ public class UpdateAccount extends Application {
                     alert.setContentText("Conta não encontrada!");
                     alert.showAndWait();
                 }
+            } catch (NumberFormatException e) {
+                AlertUtil.showErrorAlert(stage, "Alguns campos permitem somente números!");
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }

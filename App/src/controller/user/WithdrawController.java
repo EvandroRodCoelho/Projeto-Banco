@@ -1,5 +1,6 @@
 package controller.user;
 
+import controller.utils.validador.ValidatorData;
 import javafx.stage.Stage;
 import model.AppSession;
 import model.database.Conn;
@@ -15,14 +16,15 @@ public class WithdrawController {
     }
 
     public void handleWithdraw() {
-        String amountField =view.getAmountTextField().getText();
-
-        double amountConverted = Integer.parseInt(view.getAmountTextField().getText());
-        double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
-        double totalAmount = currentAmount - amountConverted;
+        String amountField = view.getAmountTextField().getText();
 
         if (!amountField.isEmpty()) {
             try {
+                ValidatorData.isValidNumber(amountField);
+
+                double currentAmount = AppSession.getContaUsuarioLogado().getSaldo();
+                double totalAmount = currentAmount - Double.parseDouble(amountField);
+
                 String query = "UPDATE contas SET numconta='" + AppSession.getContaUsuarioLogado().getNumConta() +
                         "', titular='" + AppSession.getContaUsuarioLogado().getTitular() +
                         "', saldo='" + totalAmount +
@@ -39,7 +41,10 @@ public class WithdrawController {
                 } else {
                     AlertUtil.showErrorAlert(view.getStage(), "Erro ao sacar!");
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+                AlertUtil.showErrorAlert(view.getStage(), "Somente números são aceitos!");
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         } else {

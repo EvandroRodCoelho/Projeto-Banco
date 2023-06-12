@@ -18,6 +18,8 @@ import view.utils.AlertUtil;
 
 import java.sql.SQLException;
 
+import controller.utils.validador.ValidatorData;
+
 public class AddAccount extends Application {
     private Stage stage;
 
@@ -113,26 +115,39 @@ public class AddAccount extends Application {
         setInputsAndButtonsEnabled(false);
         String numconta = numContaTextField.getText();
         String titular = titularTextField.getText();
-        Double saldo = Double.parseDouble(saldoTextField.getText());
+        String saldo = saldoTextField.getText();
         String tipoconta = tipoContaTextField.getText();
         String usuarioid = usuarioIdTextField.getText();
 
-        try {
-            Conn c1 = new Conn();
-            String query = "INSERT INTO contas (numconta, titular, saldo, tipoconta, usuarioid) VALUES ('"
-                + numconta + "', '" 
-                + titular + "', '" 
-                + saldo + "', '" 
-                + tipoconta + "', '" 
-                + usuarioid + "')";
-            int rowsAffected = c1.getStatement().executeUpdate(query);
+        if(!numconta.isEmpty() || !titular.isEmpty() || !saldo.isEmpty() || !tipoconta.isEmpty() || !usuarioid.isEmpty()){
+            try {
+                ValidatorData.isValidNumber(saldo);
+                ValidatorData.isValidNumber(numconta);
+                ValidatorData.isValidNumber(tipoconta);
+                ValidatorData.isValidNumber(usuarioid);
 
-            if (rowsAffected > 0) {
-                AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
+                Conn c1 = new Conn();
+                String query = "INSERT INTO contas (numconta, titular, saldo, tipoconta, usuarioid) VALUES ('"
+                    + numconta + "', '" 
+                    + titular + "', '" 
+                    + saldo + "', '" 
+                    + tipoconta + "', '" 
+                    + usuarioid + "')";
+                int rowsAffected = c1.getStatement().executeUpdate(query);
+
+                if (rowsAffected > 0) {
+                    AlertUtil.showSuccessAlert(stage, "Adicionado com sucesso");
+                }
+            } catch (NumberFormatException e) {
+                AlertUtil.showErrorAlert(stage, "Alguns campos permitem somente números!");
             }
-        } catch (SQLException e) {
-            AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
+            catch (SQLException e) {
+                AlertUtil.showErrorAlert(stage, "Ocorreu um erro");
+            }
+        } else {
+            AlertUtil.showErrorAlert(stage, "Existem campos vazios!");
         }
+
         setInputsAndButtonsEnabled(true);
     }
 
